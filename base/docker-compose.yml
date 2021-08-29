@@ -1,9 +1,8 @@
 # docker compose up
-# docker exec -it test
+# docker exec -it test bash
 version: "3.9"
 services:
   ubuntu:
     image: hibuz/bash
-    command: sh
     tty: true
     container_name: test

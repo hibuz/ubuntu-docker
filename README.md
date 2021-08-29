@@ -29,7 +29,7 @@ docker compose up
 ```
 
 ## 3 docker build & run command
-- see [Dockerfile](Dockerfile) & [Dockerfile.hbash](Dockerfile.hbash)
+- see [Dockerfile](Dockerfile) & [Dockerfile.ext](Dockerfile.ext)
 
 # Reference
 - https://github.com/black7375/BlaCk-Void-Zsh

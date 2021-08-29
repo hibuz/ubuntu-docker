@@ -2,22 +2,29 @@
 # docker exec -it test zsh or bash
 version: "3.9"
 services:
+
+  bash-base:
+    image: hibuz/bash
+    build:
+      context: .
+      args:
+        DEFAULT_USER: ${DEFAULT_USER}
+
   ubuntu:
     container_name: test
     image: hibuz/bvzsh-${BRANCH}
     build:
       context: .
-      #dockerfile: Dockerfile.hbash
+      dockerfile: Dockerfile.ext
       args:
         BRANCH: ${BRANCH}
-        
     env_file:
       - ./common.env
     restart: unless-stopped
     #network_mode: host
     ports:
       - 5000-5001:5000-5001
-    entrypoint: sh
+    entrypoint: bash
     command: -c "/code/init.sh"
     user: ubuntu
     working_dir: /home/ubuntu
@@ -33,6 +40,8 @@ services:
       #- /dev/bus/usb:/dev/bus/usb
       - .:/code
       - ubuntu-volume01:/data:Z
+    depends_on:
+      - bash-base
     networks:
       hibuz.com:
           aliases:

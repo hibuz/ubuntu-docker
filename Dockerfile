@@ -1,14 +1,13 @@
 # == Info =======================================
-# ubuntu20.04(SIZE: 72.7MB) -> hibuz/bvzsh-master(SIZE: 679MB), hibuz/bvzsh-powertools(SIZE: 705MB)
-# Reference: https://github.com/black7375/BlaCk-Void-Zsh/tree/master/Docker
+# ubuntu20.04(SIZE: 72.7MB) -> hibuz/bash(SIZE: 239MB)
 
-# == Build & Run (master) =======================
-# docker build -t hibuz/bvzsh .
-# docker run --rm -it hibuz/bvzsh
+# == Build ======================================
+# docker build -t hibuz/bash .
+# or
+# docker build -t hibuz/bash --build-arg DEFAULT_USER=ubuntu .
 
-# == Build & Run (powertools) ===================
-# docker build -t hibuz/bvzsh-powertools --build-arg DEFAULT_USER=ubuntu --build-arg BRANCH=powertools --build-arg UBUNTU_IMAGE_TAG=20.04 .
-# docker run --rm -it hibuz/bvzsh-powertools
+# == Run temporary ==============================
+# docker run --rm -it hibuz/bash
 
 
 # == Init =======================================
@@ -17,6 +16,7 @@ FROM ubuntu:${UBUNTU_IMAGE_TAG}
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Locale Setting =============================
+RUN sed -i 's/archive.ubuntu.com/ftp.daumkakao.com/g' /etc/apt/sources.list
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
   tzdata \
   locales \
@@ -34,9 +34,6 @@ RUN apt-get update && apt-get install -y \
   curl \
   vim \
   git \
-  lsb-release \
-  inetutils-tools \
-  unzip \
   && rm -rf /var/lib/apt/lists/*
 
 # == User Setting ===============================
@@ -50,18 +47,4 @@ RUN groupadd -g 1000 ${DEFAULT_USER} \
 USER ${DEFAULT_USER}
 WORKDIR /home/${DEFAULT_USER}
 
-# == Zsh Setting ================================
-SHELL ["/bin/bash", "-c"]
-ENV NO_FONT YES
-ENV NO_DEFAULT YES
-ARG BRANCH=master
-RUN git clone -b ${BRANCH} https://github.com/black7375/BlaCk-Void-Zsh.git ~/.zsh
-RUN ~/.zsh/BlaCk-Void-Zsh.sh
-
-# https://github.com/zdharma/zinit/issues/484
-ARG TERM
-ENV TERM ${TERM:-xterm}
-RUN SHELL=/bin/zsh zsh -isc -- "zinit module build; @zinit-scheduler burst || true"
-RUN zsh -isc "source ~/.zsh/lib/lazyenv.zsh && zinit for light-mode id-as"_local/lazyenv" eval"${LAZYENV_COMMANDS}" zdharma/null"
-
-ENTRYPOINT ["/usr/bin/zsh"]
+ENTRYPOINT ["/bin/bash"]

@@ -7,10 +7,9 @@ services:
   hadoop-base:
     image: hibuz/hadoop-base
     build:
+      context: ../
       args:
         DEFAULT_USER: ${DEFAULT_USER}
-      context: ../
-      dockerfile: Dockerfile.hbash
 
   hadoop-dev:
     container_name: hadoop
