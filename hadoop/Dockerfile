@@ -1,0 +1,59 @@
+# == Info =======================================
+# hibuz/bash==hibuz/hadoop-base(SIZE: 153MB) -> hibuz/hadoop-dev(SIZE: 1.85GB)
+
+# == Build ======================================
+# docker build -t hibuz/hadoop-dev .
+# or
+# docker build -t hibuz/hadoop-dev --build-arg HADOOP_VERSION=3.3.1 .
+
+# == RUN ========================================
+# docker run --rm -it hibuz/hadoop-dev [yarn]
+
+
+# == Init =======================================
+FROM hibuz/hadoop-base
+
+# == Package Setting ============================
+RUN sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends \
+      openjdk-8-jdk \
+      ssh \
+      netcat \
+      libsnappy-dev \
+    && sudo rm -rf /var/lib/apt/lists/*
+
+# == Hadoop Install ============================
+ARG HADOOP_VERSION=3.3.1
+RUN set -x \
+    && HADOOP_URL="https://www.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz" \
+    && curl -fSL "$HADOOP_URL" -o hadoop.tar.gz \
+    && tar -xvf hadoop.tar.gz \
+    && rm hadoop.tar.gz
+
+# == Hadoop Env Setting ============================
+ARG DEFAULT_USER=hadoop
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV HADOOP_HOME /home/${DEFAULT_USER}/hadoop-${HADOOP_VERSION}
+ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
+ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+
+RUN echo "export JAVA_HOME=$JAVA_HOME" > ~/.bash_profile \
+    && echo "export HADOOP_HOME=$HADOOP_HOME" >> ~/.bash_profile \
+    && echo "export PATH=\"\$PATH\":\$HADOOP_HOME/bin:\$HADOOP_HOME/sbin" >> ~/.bash_profile \
+    && echo "export HADOOP_HOME=$HADOOP_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh \
+    && echo "export JAVA_HOME=$JAVA_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh
+
+RUN core_conf="<property><name>fs.defaultFS</name><value>hdfs://localhost:9000</value></property>" \
+    && hdfs_conf="<property><name>dfs.replication</name><value>1</value></property>" \
+    && escaped_core_conf=$(echo $core_conf | sed 's/\//\\\//g') \
+    && escaped_hdfs_conf=$(echo $hdfs_conf | sed 's/\//\\\//g') \
+    && sed -i "/<\/configuration>/ s/.*/${escaped_core_conf}&/" $HADOOP_CONF_DIR/core-site.xml \
+    && sed -i "/<\/configuration>/ s/.*/${escaped_hdfs_conf}&/" $HADOOP_CONF_DIR/hdfs-site.xml
+
+RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
+COPY ssh_config .ssh/config
+
+COPY docker-entrypoint.sh /
+
+EXPOSE 9870 9864 8088 8030 8031 8032 8033 8040 8042 9000 22
+
+ENTRYPOINT ["/docker-entrypoint.sh"]

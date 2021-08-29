@@ -1,0 +1,35 @@
+# docker compose build hadoop-base
+# docker compose up
+# docker exec -it hadoop bash
+version: "3.9"
+services:
+
+  hadoop-base:
+    image: hibuz/hadoop-base
+    build:
+      args:
+        DEFAULT_USER: ${DEFAULT_USER}
+      context: ../
+      dockerfile: Dockerfile.hbash
+
+  hadoop-dev:
+    container_name: hadoop
+    image: hibuz/hadoop-dev
+    build:
+      args:
+        HADOOP_VERSION: 3.3.1
+        DEFAULT_USER: ${DEFAULT_USER}
+      context: .
+    ports:
+      - 9870:9870
+      - 9864:9864
+      - 8088:8088
+    #command: yarn
+    volumes:
+      - hadoop-vol:/tmp
+      #- ../hadoop-example:/home/${DEFAULT_USER}/hadoop-example:rw
+    depends_on:
+      - hadoop-base
+
+volumes:
+  hadoop-vol: {}

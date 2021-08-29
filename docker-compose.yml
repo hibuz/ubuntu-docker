@@ -1,0 +1,44 @@
+# docker compose up
+# docker exec -it test zsh or bash
+version: "3.9"
+services:
+  ubuntu:
+    container_name: test
+    image: hibuz/bvzsh-${BRANCH}
+    build:
+      context: .
+      #dockerfile: Dockerfile.hbash
+      args:
+        BRANCH: ${BRANCH}
+        
+    env_file:
+      - ./common.env
+    restart: unless-stopped
+    #network_mode: host
+    ports:
+      - 5000-5001:5000-5001
+    entrypoint: sh
+    command: -c "/code/init.sh"
+    user: ubuntu
+    working_dir: /home/ubuntu
+    stdin_open: true
+    tty: true
+    privileged: true
+    environment:
+      #- TZ=Asia/Seoul
+      - DEFAULT_ENV_ARG
+    devices:
+      - /dev/snd:/dev/snd
+    volumes:
+      #- /dev/bus/usb:/dev/bus/usb
+      - .:/code
+      - ubuntu-volume01:/data:Z
+    networks:
+      hibuz.com:
+          aliases:
+              - test.hibuz.com
+volumes:
+  ubuntu-volume01: {}
+
+networks:
+  hibuz.com:
