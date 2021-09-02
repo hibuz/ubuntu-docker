@@ -26,7 +26,7 @@ services:
     #command: yarn
     volumes:
       - hadoop-vol:/tmp
-      #- ../hadoop-example:/home/${DEFAULT_USER}/hadoop-example:rw
+      #- ../../hadoop-example:/home/${DEFAULT_USER}/hadoop-example:rw
     depends_on:
       - hadoop-base
 
