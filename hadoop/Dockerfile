@@ -40,14 +40,22 @@ RUN echo "export JAVA_HOME=$JAVA_HOME" > ~/.bash_profile \
     && echo "export HADOOP_HOME=$HADOOP_HOME" >> ~/.bash_profile \
     && echo "export PATH=\"\$PATH\":\$HADOOP_HOME/bin:\$HADOOP_HOME/sbin" >> ~/.bash_profile \
     && echo "export HADOOP_HOME=$HADOOP_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh \
-    && echo "export JAVA_HOME=$JAVA_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh
+    && echo "export HADOOP_MAPRED_HOME=$HADOOP_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh \
+    && echo "export JAVA_HOME=$JAVA_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh 
 
 RUN core_conf="<property><name>fs.defaultFS</name><value>hdfs://localhost:9000</value></property>" \
     && hdfs_conf="<property><name>dfs.replication</name><value>1</value></property>" \
+    && mapred_conf="<!--property><name>mapreduce.framework.name</name><value>yarn</value></property-->" \
+    && yarn_conf="<property><name>yarn.nodemanager.aux-services</name><value>mapreduce_shuffle</value></property> \
+                 <property><name>yarn.nodemanager.env-whitelist</name><value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value></property>" \
     && escaped_core_conf=$(echo $core_conf | sed 's/\//\\\//g') \
     && escaped_hdfs_conf=$(echo $hdfs_conf | sed 's/\//\\\//g') \
+    && escaped_mapred_conf=$(echo $mapred_conf | sed 's/\//\\\//g') \
+    && escaped_yarn_conf=$(echo $yarn_conf | sed 's/\//\\\//g') \
     && sed -i "/<\/configuration>/ s/.*/${escaped_core_conf}&/" $HADOOP_CONF_DIR/core-site.xml \
-    && sed -i "/<\/configuration>/ s/.*/${escaped_hdfs_conf}&/" $HADOOP_CONF_DIR/hdfs-site.xml
+    && sed -i "/<\/configuration>/ s/.*/${escaped_hdfs_conf}&/" $HADOOP_CONF_DIR/hdfs-site.xml \
+    && sed -i "/<\/configuration>/ s/.*/${escaped_mapred_conf}&/" $HADOOP_CONF_DIR/mapred-site.xml \
+    && sed -i "/<\/configuration>/ s/.*/${escaped_yarn_conf}&/" $HADOOP_CONF_DIR/yarn-site.xml
 
 RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
 COPY ssh_config .ssh/config
