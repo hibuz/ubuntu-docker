@@ -1,0 +1,21 @@
+# docker compose up
+# docker compose exec hive-dev bash
+# or
+# docker exec -it hive bash
+version: "3.9"
+services:
+
+  hive-dev:
+    container_name: hive
+    image: hibuz/hive-dev
+    build: .
+    ports:
+      - 9870:9870
+      - 9864:9864
+      - 8088:8088
+      - 10002:10002
+    volumes:
+      - hive-vol:/tmp
+
+volumes:
+  hive-vol: {}
