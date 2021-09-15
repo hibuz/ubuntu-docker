@@ -84,7 +84,7 @@ docker compose down -v
 ```
 
 # Visit hive dashboard
-- http://localhost:10002
+- http://localhost:9002
 
 # Reference
 - https://cwiki.apache.org/confluence/display/Hive/GettingStarted
