@@ -3,15 +3,17 @@
 sudo service ssh start
 
 if [ ! -d "/tmp/hadoop-`whoami`/dfs/name" ]; then
-hdfs namenode -format
+    hdfs namenode -format
 fi
 
-$HADOOP_HOME/sbin/start-dfs.sh
+start-dfs.sh
 
 if [ "$1" == "yarn" ]; then
-$HADOOP_HOME/sbin/start-yarn.sh
+    start-yarn.sh
 fi
 
 jps
+
+hdfs dfsadmin -report
 
 tail -f $HADOOP_HOME/logs/*namenode*.log

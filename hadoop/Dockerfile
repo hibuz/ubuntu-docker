@@ -14,24 +14,25 @@
 FROM hibuz/hadoop-base
 
 # == Package Setting ============================
+ARG JDK_VERSION=8
 RUN sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends \
-      openjdk-8-jdk \
+      openjdk-${JDK_VERSION}-jdk \
       ssh \
       netcat \
       libsnappy-dev \
     && sudo rm -rf /var/lib/apt/lists/*
 
-# == Hadoop Install ============================
+# == Install ============================
 ARG HADOOP_VERSION=3.3.1
 RUN set -x \
-    && HADOOP_URL="https://www.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz" \
-    && curl -fSL "$HADOOP_URL" -o hadoop.tar.gz \
-    && tar -xvf hadoop.tar.gz \
-    && rm hadoop.tar.gz
+    && DOWNLOAD_URL="https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz" \
+    && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
+    && tar -xvf download.tar.gz \
+    && rm download.tar.gz
 
-# == Hadoop Env Setting ============================
+# == Env Setting ============================
 ARG DEFAULT_USER=hadoop
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-${JDK_VERSION}-openjdk-amd64
 ENV HADOOP_HOME /home/${DEFAULT_USER}/hadoop-${HADOOP_VERSION}
 ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
 ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
@@ -40,8 +41,11 @@ RUN echo "export JAVA_HOME=$JAVA_HOME" > ~/.bash_profile \
     && echo "export HADOOP_HOME=$HADOOP_HOME" >> ~/.bash_profile \
     && echo "export PATH=\"\$PATH\":\$HADOOP_HOME/bin:\$HADOOP_HOME/sbin" >> ~/.bash_profile \
     && echo "export HADOOP_HOME=$HADOOP_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh \
-    && echo "export HADOOP_MAPRED_HOME=$HADOOP_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh \
+    && echo "export HADOOP_MAPRED_HOME=\$HADOOP_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh \
     && echo "export JAVA_HOME=$JAVA_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh 
+
+RUN if [ -f "$HADOOP_CONF_DIR/mapred-site.xml.template" ]; then \
+    cp $HADOOP_CONF_DIR/mapred-site.xml.template $HADOOP_CONF_DIR/mapred-site.xml; fi
 
 RUN core_conf="<property><name>fs.defaultFS</name><value>hdfs://localhost:9000</value></property>" \
     && hdfs_conf="<property><name>dfs.replication</name><value>1</value></property>" \
