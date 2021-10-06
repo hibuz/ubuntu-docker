@@ -1,13 +1,15 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 239MB) -> hibuz/hadoop-dev(SIZE: 1.98GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 293MB) -> hibuz/hadoop-dev(SIZE: 1.98GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev .
 # or
 # docker build -t hibuz/hadoop-dev --build-arg HADOOP_VERSION=3.3.1 .
 
-# == RUN ========================================
-# docker run --rm -it hibuz/hadoop-dev [yarn]
+# == Run and Attatch ============================
+# docker run --rm -it -p 9870:9870 --name hadoop-tmp hibuz/hadoop-dev [yarn]
+# 
+# docker exec -it hadoop-tmp bash
 
 
 # == Init =======================================
@@ -36,10 +38,12 @@ ENV JAVA_HOME /usr/lib/jvm/java-${JDK_VERSION}-openjdk-amd64
 ENV HADOOP_HOME /home/${DEFAULT_USER}/hadoop-${HADOOP_VERSION}
 ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
 ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+ENV LD_LIBRARY_PATH $HADOOP_HOME/lib/native
 
 RUN echo "export JAVA_HOME=$JAVA_HOME" > ~/.bash_profile \
     && echo "export HADOOP_HOME=$HADOOP_HOME" >> ~/.bash_profile \
     && echo "export PATH=\"\$PATH\":\$HADOOP_HOME/bin:\$HADOOP_HOME/sbin" >> ~/.bash_profile \
+    && echo "export LD_LIBRARY_PATH=\$HADOOP_HOME/lib/native" >> ~/.bash_profile \
     && echo "export HADOOP_HOME=$HADOOP_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh \
     && echo "export HADOOP_MAPRED_HOME=\$HADOOP_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh \
     && echo "export JAVA_HOME=$JAVA_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh 
