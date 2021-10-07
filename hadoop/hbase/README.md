@@ -11,7 +11,7 @@ docker compose up
 ``` bash
 docker exec -it hbase bash
 
-~/hbase-2.4.6$ hdfs dfs -ls /hbase
+~/hbase-2.3.6$ hdfs dfs -ls /hbase
 Found 12 items
 drwxr-xr-x   - hadoop supergroup          0 2021-10-06 13:33 /hbase/.hbck
 drwxr-xr-x   - hadoop supergroup          0 2021-10-06 13:33 /hbase/.tmp
@@ -31,12 +31,12 @@ drwx--x--x   - hadoop supergroup          0 2021-10-06 13:33 /hbase/staging
 ``` bash
 
 # Connect to HBase.
-~/hbase-2.4.6$ hbase shell
+~/hbase-2.3.6$ hbase shell
 HBase Shell
 Use "help" to get list of supported commands.
 Use "exit" to quit this interactive shell.
 For Reference, please visit: http://hbase.apache.org/2.0/book.html#shell
-Version 2.4.6, r7374d396c271d340d6600d2d6e9cfd61307d9ef8, Fri Sep  3 09:54:35 PDT 2021
+Version 2.3.6, r7374d396c271d340d6600d2d6e9cfd61307d9ef8, Fri Sep  3 09:54:35 PDT 2021
 Took 0.0683 seconds
 hbase(main):001:0>
 
@@ -64,8 +64,8 @@ hbase(main):006:0> exit
 ### HBase, MapReduce
 ``` bash
 # hbase rowcounter test or
-~/hbase-2.4.6$ HADOOP_CLASSPATH=`hbase mapredcp` \
-${HADOOP_HOME}/bin/hadoop jar ${HBASE_HOME}/lib/hbase-mapreduce-2.4.6.jar rowcounter test
+~/hbase-2.3.6$ HADOOP_CLASSPATH=`hbase mapredcp` \
+${HADOOP_HOME}/bin/hadoop jar ${HBASE_HOME}/lib/hbase-mapreduce-2.3.6.jar rowcounter test
 
 ...
 2021-10-06 13:53:22,580 INFO mapreduce.Job:  map 100% reduce 0%
