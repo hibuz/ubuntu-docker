@@ -38,9 +38,9 @@ hdfs dfs -cat output/*
 ```
 
 # Visit hadoop dashboard
-- http://localhost:9870
-- http://localhost:8088 (run start-yarn.sh or uncomment command props in [docker-compose.yml](docker-compose.yml))
-
+- Hadoop Dashboard: http://localhost:9870
+- Yarn Dashboard: http://localhost:8088 (run start-yarn.sh or uncomment command props in [docker-compose.yml](docker-compose.yml))
+- Hadoop Job History : http://localhost:19888
 # Reference
 - https://github.com/rancavil/hadoop-single-node-cluster
 - https://github.com/big-data-europe/docker-hadoop

@@ -8,8 +8,12 @@ fi
 
 start-dfs.sh
 
-if [ "$1" == "yarn" ]; then
+if [ "$1" == *"yarn"* ]; then
     start-yarn.sh
+fi
+
+if [ "$1" == *"historyserver"* ]; then
+    mapred --daemon start historyserver
 fi
 
 jps
