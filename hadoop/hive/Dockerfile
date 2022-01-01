@@ -36,7 +36,7 @@ RUN rm $HIVE_HOME/lib/guava-19.0.jar \
 RUN cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
     && cp $HIVE_HOME/conf/hive-default.xml.template $HIVE_HOME/conf/hive-default.xml \
     && echo "export HIVE_HOME=$HIVE_HOME" >> ~/.bash_profile \
-    && echo "export PATH=\"\$PATH\":\$HIVE_HOME/bin" >> ~/.bash_profile \
+    && echo "export PATH=\$PATH:\$HIVE_HOME/bin" >> ~/.bash_profile \
     && echo "export HADOOP_HEAPSIZE=512" >> $HIVE_HOME/conf/hive-env.sh
 
 RUN core_conf="<property><name>hadoop.proxyuser.${DEFAULT_USER}.hosts</name><value>*</value></property>\
