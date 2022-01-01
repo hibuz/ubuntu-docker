@@ -88,3 +88,4 @@ docker compose down -v
 
 # Reference
 - https://cwiki.apache.org/confluence/display/Hive/GettingStarted
+- https://github.com/tech4242/docker-hadoop-hive-parquet
