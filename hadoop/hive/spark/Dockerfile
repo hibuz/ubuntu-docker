@@ -14,7 +14,6 @@
 
 # == Init =======================================
 FROM hibuz/hive-dev
-ARG DEFAULT_USER=hadoop
 WORKDIR /home/${DEFAULT_USER}
 
 # == Package Setting ============================

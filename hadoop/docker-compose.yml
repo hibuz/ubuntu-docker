@@ -10,8 +10,6 @@ services:
     image: hibuz/hadoop-base
     build:
       context: ../
-      args:
-        DEFAULT_USER: ${DEFAULT_USER:-hadoop}
 
   hadoop-dev:
     container_name: hadoop
@@ -22,10 +20,10 @@ services:
       - 9864:9864
       - 8088:8088
       - 19888:19888
-    #command: yarn
+    #command: yarn,historyserver
     volumes:
       - hadoop-vol:/tmp
-      #- ../../hadoop-example:/home/${DEFAULT_USER}/hadoop-example:rw
+      #- ../../hadoop-example:/home/hadoop/hadoop-example:rw
     depends_on:
       - hadoop-base
 

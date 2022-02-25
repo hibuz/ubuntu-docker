@@ -7,7 +7,7 @@
 # docker build -t hibuz/hadoop-dev --build-arg HADOOP_VERSION=3.3.1 .
 
 # == Run and Attatch ============================
-# docker run --rm -it -p 9870:9870 --name hadoop-tmp hibuz/hadoop-dev [yarn]
+# docker run --rm -it -p 9870:9870 --name hadoop-tmp hibuz/hadoop-dev [yarn,historyserver]
 # 
 # docker exec -it hadoop-tmp bash
 
@@ -16,7 +16,7 @@
 FROM hibuz/hadoop-base
 
 # == Package Setting ============================
-ARG JDK_VERSION=8
+ARG JDK_VERSION=${JDK_VERSION:-8}
 RUN sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends \
       openjdk-${JDK_VERSION}-jdk \
       ssh \
@@ -33,7 +33,8 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ARG DEFAULT_USER=${DEFAULT_USER:-hadoop}
+ARG DEFAULT_USER
+ENV DEFAULT_USER ${DEFAULT_USER:-hadoop}
 ENV JAVA_HOME /usr/lib/jvm/java-${JDK_VERSION}-openjdk-amd64
 ENV HADOOP_HOME /home/${DEFAULT_USER}/hadoop-${HADOOP_VERSION}
 ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop

@@ -21,7 +21,7 @@ services:
       - 8081:8081
       - 4040:4040
       - 18080:18080
-    #command: yarn, hive, historyserver
+    #command: yarn,hive,historyserver
     volumes:
       - spark-vol:/tmp
 

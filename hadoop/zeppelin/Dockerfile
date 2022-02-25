@@ -43,7 +43,6 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ARG DEFAULT_USER=${DEFAULT_USER:-hadoop}
 ENV SPARK_HOME /home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 ENV ZEPPELIN_HOME /home/${DEFAULT_USER}/zeppelin-${ZEPPELIN_VERSION}
 ENV ZEPPELIN_ADDR 0.0.0.0

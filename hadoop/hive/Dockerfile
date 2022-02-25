@@ -25,7 +25,6 @@ RUN set -x \
     && rm hive.tar.gz
 
 # == Hive Env Setting ============================
-ARG DEFAULT_USER=${DEFAULT_USER:-hadoop}
 ENV HIVE_HOME /home/${DEFAULT_USER}/hive-${HIVE_VERSION}
 ENV PATH $PATH:$HIVE_HOME/bin
 

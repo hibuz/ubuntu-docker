@@ -25,7 +25,6 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ARG DEFAULT_USER=${DEFAULT_USER:-hadoop}
 ENV HBASE_HOME /home/${DEFAULT_USER}/hbase-${HBASE_VERSION}
 ENV PATH $PATH:$HBASE_HOME/bin
 

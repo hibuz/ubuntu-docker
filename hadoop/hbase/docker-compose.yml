@@ -24,7 +24,7 @@ services:
       - 16030:60030
     volumes:
       - hbase-vol:/tmp
-      #- ../../../hbase-example:/home/${DEFAULT_USER:-hadoop}/hbase-example:rw
+      #- ../../../hbase-example:/home/hadoop/hbase-example:rw
     depends_on:
       - hbase-base
 
