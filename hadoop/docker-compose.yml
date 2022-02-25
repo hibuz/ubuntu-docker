@@ -1,3 +1,4 @@
+# docker compose build hadoop-base
 # docker compose up --build
 
 # docker compose exec hadoop bash
@@ -10,6 +11,8 @@ services:
     image: hibuz/hadoop-base
     build:
       context: ../
+      args:
+        DEFAULT_USER: ${DEFAULT_USER:-hadoop}
 
   hadoop-dev:
     container_name: hadoop

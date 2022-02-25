@@ -1,3 +1,4 @@
+# docker compose build hbase-base
 # docker compose up --build
 
 # docker compose exec hbase-dev bash
