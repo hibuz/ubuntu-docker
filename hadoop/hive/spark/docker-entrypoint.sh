@@ -8,11 +8,11 @@ fi
 
 start-dfs.sh
 
-if [ "$1" == *"yarn"* ]; then
+if [[ "$1" == *"yarn"* ]]; then
     start-yarn.sh
 fi
 
-if [ "$1" == *"historyserver"* ]; then
+if [[ "$1" == *"historyserver"* ]]; then
     # hadoop history server
     mapred --daemon start historyserver
     # Spark history server
@@ -27,7 +27,7 @@ hdfs dfsadmin -report
 
 jps
 
-if [ "$1" == *"hive"* ]; then
+if [[ "$1" == *"hive"* ]]; then
     cd $HIVE_HOME
 
     if [ ! -d "$HIVE_HOME/metastore_db" ]; then

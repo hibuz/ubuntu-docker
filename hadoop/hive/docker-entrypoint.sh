@@ -13,11 +13,11 @@ if [ ! -d "$HIVE_HOME/metastore_db" ]; then
     schematool -dbType derby -initSchema
 fi
 
-if [ "$1" == *"yarn"* ]; then
+if [[ "$1" == *"yarn"* ]]; then
     start-yarn.sh
 fi
 
-if [ "$1" == *"historyserver"* ]; then
+if [[ "$1" == *"historyserver"* ]]; then
     mapred --daemon start historyserver
 fi
 
