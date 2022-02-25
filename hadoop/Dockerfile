@@ -25,7 +25,7 @@ RUN sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -
     && sudo rm -rf /var/lib/apt/lists/*
 
 # == Install ============================
-ARG HADOOP_VERSION=3.3.1
+ARG HADOOP_VERSION=${HADOOP_VERSION:-3.3.1}
 RUN set -x \
     && DOWNLOAD_URL="https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
@@ -33,7 +33,7 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ARG DEFAULT_USER=hadoop
+ARG DEFAULT_USER=${DEFAULT_USER:-hadoop}
 ENV JAVA_HOME /usr/lib/jvm/java-${JDK_VERSION}-openjdk-amd64
 ENV HADOOP_HOME /home/${DEFAULT_USER}/hadoop-${HADOOP_VERSION}
 ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop

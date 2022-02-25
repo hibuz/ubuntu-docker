@@ -16,7 +16,7 @@
 FROM hibuz/hadoop-base
 
 # == Package Setting ============================
-ARG JDK_VERSION=8
+ARG JDK_VERSION=${JDK_VERSION:-8}
 RUN sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends \
       openjdk-${JDK_VERSION}-jdk python3 python3-pip \
       ssh \
@@ -25,7 +25,7 @@ RUN sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -
     && sudo rm -rf /var/lib/apt/lists/*
 
 # == Install ============================
-ARG SPARK_VERSION=3.1.2
+ARG SPARK_VERSION=${SPARK_VERSION:-3.1.2}
 RUN set -x \
     && DOWNLOAD_URL="https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.2.tgz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
@@ -34,7 +34,7 @@ RUN set -x \
     && mkdir /tmp/spark-events \
     && rm download.tar.gz
 
-ARG ZEPPELIN_VERSION=0.10.0
+ARG ZEPPELIN_VERSION=${ZEPPELIN_VERSION:-0.10.0}
 RUN set -x \
     && DOWNLOAD_URL="https://dlcdn.apache.org/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-all.tgz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
@@ -43,7 +43,7 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ARG DEFAULT_USER=hadoop
+ARG DEFAULT_USER=${DEFAULT_USER:-hadoop}
 ENV SPARK_HOME /home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 ENV ZEPPELIN_HOME /home/${DEFAULT_USER}/zeppelin-${ZEPPELIN_VERSION}
 ENV ZEPPELIN_ADDR 0.0.0.0

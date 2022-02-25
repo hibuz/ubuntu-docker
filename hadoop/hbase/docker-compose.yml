@@ -1,5 +1,5 @@
-# docker compose build hbase-base
-# docker compose up
+# docker compose up --build
+
 # docker compose exec hbase-dev bash
 # or
 # docker exec -it hbase bash
@@ -7,20 +7,15 @@ version: "3.9"
 services:
 
   hbase-base:
-    image: hibuz/hbase-base:${HADOOP_VERSION}
+    image: hibuz/hbase-base:${HADOOP_VERSION:-3.3.1}
     build:
       context: ../
-      args:
-        HADOOP_VERSION: ${HADOOP_VERSION}
     entrypoint: bash
 
   hbase-dev:
     container_name: hbase
     image: hibuz/hbase-dev
-    build:
-      args:
-        HADOOP_VERSION: ${HADOOP_VERSION}
-        HBASE_VERSION: ${HBASE_VERSION}
+    build: .
     ports:
       - 9870:9870
       - 8088:8088

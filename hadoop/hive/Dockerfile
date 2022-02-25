@@ -16,7 +16,7 @@
 FROM hibuz/hadoop-dev
 
 # == Hive Install ============================
-ARG HIVE_VERSION=3.1.2
+ARG HIVE_VERSION=${HIVE_VERSION:-3.1.2}
 RUN set -x \
     && HIVE_URL="https://downloads.apache.org/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz" \
     && curl -fSL "$HIVE_URL" -o hive.tar.gz \
@@ -25,7 +25,7 @@ RUN set -x \
     && rm hive.tar.gz
 
 # == Hive Env Setting ============================
-ARG DEFAULT_USER=hadoop
+ARG DEFAULT_USER=${DEFAULT_USER:-hadoop}
 ENV HIVE_HOME /home/${DEFAULT_USER}/hive-${HIVE_VERSION}
 ENV PATH $PATH:$HIVE_HOME/bin
 

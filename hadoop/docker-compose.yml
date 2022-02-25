@@ -1,5 +1,7 @@
-# docker compose build hadoop-base
-# docker compose up
+# docker compose up --build
+
+# docker compose exec hadoop bash
+# or
 # docker exec -it hadoop bash
 version: "3.9"
 services:
@@ -9,16 +11,12 @@ services:
     build:
       context: ../
       args:
-        DEFAULT_USER: ${DEFAULT_USER}
+        DEFAULT_USER: ${DEFAULT_USER:-hadoop}
 
   hadoop-dev:
     container_name: hadoop
     image: hibuz/hadoop-dev
-    build:
-      args:
-        HADOOP_VERSION: 3.3.1
-        DEFAULT_USER: ${DEFAULT_USER}
-      context: .
+    build: .
     ports:
       - 9870:9870
       - 9864:9864

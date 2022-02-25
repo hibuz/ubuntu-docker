@@ -13,9 +13,9 @@
 
 
 # == Init =======================================
-ARG HADOOP_VERSION=3.3.1
+ARG HADOOP_VERSION=${HADOOP_VERSION:-3.3.1}
 FROM hibuz/hbase-base:${HADOOP_VERSION}
-ARG HBASE_VERSION=2.3.6
+ARG HBASE_VERSION=${HBASE_VERSION:-2.3.6}
 
 # == Install ============================
 RUN set -x \
@@ -25,7 +25,7 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ARG DEFAULT_USER=hadoop
+ARG DEFAULT_USER=${DEFAULT_USER:-hadoop}
 ENV HBASE_HOME /home/${DEFAULT_USER}/hbase-${HBASE_VERSION}
 ENV PATH $PATH:$HBASE_HOME/bin
 
