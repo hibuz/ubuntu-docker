@@ -4,7 +4,7 @@
 # == Build ======================================
 # docker build -t hibuz/hbase-dev .
 # or
-# docker build -t hibuz/hbase-dev --build-arg HBASE_VERSION=2.3.6 .
+# docker build -t hibuz/hbase-dev --build-arg HBASE_VERSION=2.3.7 .
 
 # == Run and Attatch ============================
 # docker run --rm -it -p 9870:9870 -p 16010:16010 --name hbase-tmp hibuz/hbase-dev
@@ -15,7 +15,7 @@
 # == Init =======================================
 ARG HADOOP_VERSION=${HADOOP_VERSION:-3.3.1}
 FROM hibuz/hbase-base:${HADOOP_VERSION}
-ARG HBASE_VERSION=${HBASE_VERSION:-2.3.6}
+ARG HBASE_VERSION=${HBASE_VERSION:-2.3.7}
 
 # == Install ============================
 RUN set -x \
