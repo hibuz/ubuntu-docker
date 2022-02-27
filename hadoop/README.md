@@ -4,7 +4,7 @@
 git clone https://github.com/hibuz/ubuntu-docker
 cd ubuntu-docker/hadoop
 
-docker compose up
+docker compose up hadoop-dev --no-build
 ```
 
 ## Docker build & run for custom hadoop user and version
@@ -57,6 +57,17 @@ hdfs dfs -cat output/*
 # Result of the output files 
 1	dfsadmin
 1	dfs.replication
+```
+
+### Stops containers and removes containers, networks, and volumes created by `up`.
+``` bash
+
+docker compose down -v
+
+[+] Running 3/3
+ ⠿ Container hbase         Removed
+ ⠿ Volume hbase_hbase-vol  Removed
+ ⠿ Network hbase_default   Removed
 ```
 
 # Visit hadoop dashboard

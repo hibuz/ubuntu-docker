@@ -4,7 +4,7 @@
 git clone https://github.com/hibuz/ubuntu-docker
 cd ubuntu-docker/hadoop/zeppelin
 
-docker compose up
+docker compose up --no-build
 ```
 
 ### Attach to running container

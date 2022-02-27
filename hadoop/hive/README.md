@@ -4,7 +4,7 @@
 git clone https://github.com/hibuz/ubuntu-docker
 cd ubuntu-docker/hadoop/hive
 
-docker compose up
+docker compose up --no-build
 
 # Wait until 4 Hive sessions are created
 hive  | 2021-09-12 03:48:25: Starting HiveServer2
