@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 297MB) -> hibuz/zeppelin-dev(SIZE: 2.8GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 297MB) -> hibuz/zeppelin-dev(SIZE: 3.18GB)
 
 # == Build ======================================
 # docker build -t hibuz/zeppelin-dev:simple -f Dockerfile.simple .

@@ -20,14 +20,12 @@ docker compose up
   # hbase|hive|spark
   ubuntu-docker/hadoop/(hbase|hive|spark)$ docker compose up --build
   # spark-base for zeppelin
-  ubuntu-docker/hadoop/zeppelin)$ docker compose build spark-base
+  ubuntu-docker/hadoop/zeppelin$ docker compose build spark-base
   # zeppelin
-  ubuntu-docker/hadoop/zeppelin)$ docker compose up --build
+  ubuntu-docker/hadoop/zeppelin$ docker compose up --build
   ```
   </details>
 
-## Execute MapReduce jobs
-- See https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html#Execution
 
 ### Attach to running container
 ``` bash
@@ -67,5 +65,6 @@ hdfs dfs -cat output/*
 - Hadoop Job History: http://localhost:19888
 
 # Reference
+- [Execute MapReduce jobs](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html#Execution)
 - https://github.com/rancavil/hadoop-single-node-cluster
 - https://github.com/big-data-europe/docker-hadoop
