@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 295MB) -> hibuz/hadoop-dev(SIZE: 1.98GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 297MB) -> hibuz/hadoop-dev(SIZE: 1.99GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev .
@@ -33,8 +33,6 @@ RUN set -x \
     && rm download.tar.gz
 
 # == Env Setting ============================
-ARG DEFAULT_USER
-ENV DEFAULT_USER ${DEFAULT_USER:-hadoop}
 ENV JAVA_HOME /usr/lib/jvm/java-${JDK_VERSION}-openjdk-amd64
 ENV HADOOP_HOME /home/${DEFAULT_USER}/hadoop-${HADOOP_VERSION}
 ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
@@ -54,7 +52,7 @@ RUN if [ -f "$HADOOP_CONF_DIR/mapred-site.xml.template" ]; then \
 
 RUN core_conf="<property><name>fs.defaultFS</name><value>hdfs://localhost:9000</value></property>" \
     && hdfs_conf="<property><name>dfs.replication</name><value>1</value></property>" \
-    && mapred_conf="<!--property><name>mapreduce.framework.name</name><value>yarn</value></property-->" \
+    && mapred_conf="<property><name>mapreduce.framework.name</name><value>local</value></property>" \
     && yarn_conf="<property><name>yarn.nodemanager.aux-services</name><value>mapreduce_shuffle</value></property> \
                  <property><name>yarn.nodemanager.env-whitelist</name><value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value></property>" \
     && escaped_core_conf=$(echo $core_conf | sed 's/\//\\\//g') \
@@ -69,8 +67,11 @@ RUN core_conf="<property><name>fs.defaultFS</name><value>hdfs://localhost:9000</
 RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
 COPY ssh_config .ssh/config
 
+
 COPY docker-entrypoint.sh /
 
-EXPOSE 9870 9864 8088 8030 8031 8032 8033 8040 8042 9000 22
+WORKDIR ${HADOOP_HOME}
+
+EXPOSE 19888 9870 9864 8088 9000 22
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

@@ -9,6 +9,7 @@ fi
 start-dfs.sh
 
 if [[ "$1" == *"yarn"* ]]; then
+    sed -i s/local/yarn/ $HADOOP_CONF_DIR/mapred-site.xml
     start-yarn.sh
 fi
 
@@ -16,8 +17,8 @@ if [[ "$1" == *"historyserver"* ]]; then
     mapred --daemon start historyserver
 fi
 
-jps
-
 hdfs dfsadmin -report
+
+jps
 
 hbase master start

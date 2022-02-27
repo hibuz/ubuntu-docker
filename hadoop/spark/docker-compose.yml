@@ -12,16 +12,15 @@ services:
     build: .
     ports:
       - 9870:9870
-      - 9864:9864
       - 8088:8088
-      - 9002:10002
+      - 10002:10002
+      - 16010:16010
       - 19888:19888
-      - 7080:7080
+      - 4040:4040
       - 8080:8080
       - 8081:8081
-      - 4040:4040
       - 18080:18080
-    #command: yarn,hive,historyserver
+    #command: spark,hive,hbase,yarn,historyserver
     volumes:
       - spark-vol:/tmp
 

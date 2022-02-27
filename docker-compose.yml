@@ -1,4 +1,4 @@
-# docker compose up
+# docker compose up --build
 # docker exec -it test zsh or bash
 version: "3.9"
 services:
@@ -9,6 +9,7 @@ services:
       context: .
       args:
         DEFAULT_USER: ${DEFAULT_USER}
+        UBUNTU_IMAGE_TAG: ${UBUNTU_IMAGE_TAG}
 
   ubuntu:
     container_name: test

@@ -1,7 +1,7 @@
 # docker compose build hadoop-base
 # docker compose up --build
 
-# docker compose exec hadoop bash
+# docker compose exec hadoop-dev bash
 # or
 # docker exec -it hadoop bash
 version: "3.9"

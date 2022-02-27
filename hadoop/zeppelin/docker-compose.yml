@@ -1,0 +1,42 @@
+# docker compose build spark-base
+# docker compose up --build
+
+# docker compose exec zeppelin-dev bash
+# or
+# docker exec -it zeppelin bash
+version: "3.9"
+services:
+
+  spark-base:
+    image: hibuz/spark-dev:${SPARK_IMAGE_TAG:-latest}
+    build:
+      context: ../spark
+      args:
+        SPARK_VERSION: ${SPARK_IMAGE_TAG}
+    entrypoint: bash
+
+  zeppelin-dev:
+    container_name: zeppelin
+    image: hibuz/zeppelin-dev
+    build: 
+      context: .
+      args:
+        SPARK_IMAGE_TAG: ${SPARK_IMAGE_TAG}
+    ports:
+      - 9870:9870
+      - 8088:8088
+      - 10002:10002
+      - 16010:16010
+      - 19888:19888
+      - 4040:4040
+      - 8080:8080
+      - 8081:8081
+      - 18080:18080
+      - 9995:9995
+    #command: spark,hive,hbase,yarn,historyserver
+    volumes:
+      - zeppelin-vol:/tmp
+      #- ../../zeppelin-example:/home/hadoop/zeppelin-0.10.0/notebook:rw
+
+volumes:
+  zeppelin-vol: {}

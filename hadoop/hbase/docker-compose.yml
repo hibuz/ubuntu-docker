@@ -1,4 +1,3 @@
-# docker compose build hbase-base
 # docker compose up --build
 
 # docker compose exec hbase-dev bash
@@ -7,12 +6,6 @@
 version: "3.9"
 services:
 
-  hbase-base:
-    image: hibuz/hbase-base:${HADOOP_VERSION:-3.3.1}
-    build:
-      context: ../
-    entrypoint: bash
-
   hbase-dev:
     container_name: hbase
     image: hibuz/hbase-dev
@@ -20,14 +13,12 @@ services:
     ports:
       - 9870:9870
       - 8088:8088
-      - 9002:10002
       - 16010:16010
-      - 16030:60030
+      - 19888:19888
+    #command: yarn,historyserver
     volumes:
       - hbase-vol:/tmp
       #- ../../../hbase-example:/home/hadoop/hbase-example:rw
-    depends_on:
-      - hbase-base
 
 volumes:
   hbase-vol: {}

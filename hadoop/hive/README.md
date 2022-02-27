@@ -51,7 +51,7 @@ No rows affected (0.334 seconds)
 1 row selected (0.257 seconds)
 
 # Loading data from flat example file into Hive:
-0: jdbc:hive2://localhost:10000> LOAD DATA LOCAL INPATH './examples/files/kv1.txt' OVERWRITE INTO TABLE pokes;
+0: jdbc:hive2://localhost:10000> LOAD DATA LOCAL INPATH '/home/hadoop/hive-3.1.2/examples/files/kv1.txt' OVERWRITE INTO TABLE pokes;
 ...
 INFO  : OK
 INFO  : Concurrency mode is disabled, not creating a lock manager
@@ -78,13 +78,13 @@ Closing: 0: jdbc:hive2://localhost:10000
 docker compose down -v
 
 [+] Running 3/3
- ⠿ Container hive          Removed
- ⠿ Network hive_default    Removed
- ⠿ Volume hive_hive-vol    Removed
+ ⠿ Container hive        Removed
+ ⠿ Volume hive_hive-vol  Removed
+ ⠿ Network hive_default  Removed
 ```
 
 # Visit hive dashboard
-- http://localhost:9002
+- http://localhost:10002
 
 # Reference
 - https://cwiki.apache.org/confluence/display/Hive/GettingStarted

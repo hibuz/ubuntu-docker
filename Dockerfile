@@ -1,17 +1,17 @@
 # == Info =======================================
-# ubuntu20.04(SIZE: 72.7MB) -> hibuz/bash(SIZE: 239MB)
+# ubuntu20.04(SIZE: 72.8MB) -> hibuz/bash(SIZE: 297MB)
 
 # == Build ======================================
 # docker build -t hibuz/bash .
 # or
-# docker build -t hibuz/bash --build-arg DEFAULT_USER=ubuntu .
+# docker build -t hibuz/bash --build-arg DEFAULT_USER=ubuntu --build-arg UBUNTU_IMAGE_TAG=20.04 .
 
 # == Run temporary ==============================
 # docker run --rm -it hibuz/bash
 
 
 # == Init =======================================
-ARG UBUNTU_IMAGE_TAG=latest
+ARG UBUNTU_IMAGE_TAG=${UBUNTU_IMAGE_TAG:-latest}
 FROM ubuntu:${UBUNTU_IMAGE_TAG}
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
@@ -37,7 +37,8 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 # == User Setting ===============================
-ARG DEFAULT_USER=ubuntu
+ARG DEFAULT_USER=${DEFAULT_USER:-ubuntu}
+ENV DEFAULT_USER ${DEFAULT_USER}
 RUN groupadd -g 1000 ${DEFAULT_USER} \
   && useradd -r -u 1000 -g ${DEFAULT_USER} -s /bin/bash ${DEFAULT_USER} \
   && mkdir /home/${DEFAULT_USER} \

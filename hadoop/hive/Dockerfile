@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hadoop-dev(SIZE: 1.98GB) -> hibuz/hive-dev(SIZE: 2.3GB)
+# hibuz/hbase-dev(SIZE: 2.37GB) -> hibuz/hive-dev(SIZE: 2.68GB)
 
 # == Build ======================================
 # docker build -t hibuz/hive-dev .
@@ -13,24 +13,23 @@
 
 
 # == Init =======================================
-FROM hibuz/hadoop-dev
+FROM hibuz/hbase-dev
 
-# == Hive Install ============================
+# == Install ============================
 ARG HIVE_VERSION=${HIVE_VERSION:-3.1.2}
-RUN set -x \
-    && HIVE_URL="https://downloads.apache.org/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz" \
-    && curl -fSL "$HIVE_URL" -o hive.tar.gz \
-    && tar -xvf hive.tar.gz \
-    && mv apache-hive-${HIVE_VERSION}-bin hive-${HIVE_VERSION} \
-    && rm hive.tar.gz
-
-# == Hive Env Setting ============================
 ENV HIVE_HOME /home/${DEFAULT_USER}/hive-${HIVE_VERSION}
-ENV PATH $PATH:$HIVE_HOME/bin
 
-# https://issues.apache.org/jira/browse/HIVE-22915
-RUN rm $HIVE_HOME/lib/guava-19.0.jar \
-    && cp $HADOOP_HOME/share/hadoop/hdfs/lib/guava-27.0-jre.jar $HIVE_HOME/lib/ 
+RUN set -x \
+    && DOWNLOAD_URL="https://downloads.apache.org/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz" \
+    && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
+    && tar -xvf download.tar.gz \
+    && mv apache-hive-${HIVE_VERSION}-bin $HIVE_HOME \
+    && rm $HIVE_HOME/lib/guava-19.0.jar \
+    && cp $HADOOP_HOME/share/hadoop/hdfs/lib/guava-27.0-jre.jar $HIVE_HOME/lib/ \
+    && rm download.tar.gz
+
+# == Env Setting ============================
+ENV PATH $PATH:$HIVE_HOME/bin
 
 RUN cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
     && cp $HIVE_HOME/conf/hive-default.xml.template $HIVE_HOME/conf/hive-default.xml \

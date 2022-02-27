@@ -1,5 +1,5 @@
 # == Info =======================================
-# ubuntu20.04(SIZE: 72.7MB) -> hibuz/bvzsh-master(SIZE: 699MB), hibuz/bvzsh-powertools(SIZE: 724MB)
+# ubuntu20.04(SIZE: 72.8MB) -> hibuz/bvzsh-master(SIZE: 699MB), hibuz/bvzsh-powertools(SIZE: 724MB)
 # Reference: https://github.com/black7375/BlaCk-Void-Zsh/tree/master/Docker
 
 # == Build & Run (master) =======================
@@ -25,7 +25,7 @@ RUN sudo apt-get update && sudo apt-get install -y \
 SHELL ["/bin/bash", "-c"]
 ENV NO_FONT YES
 ENV NO_DEFAULT YES
-ARG BRANCH=master
+ARG BRANCH=${BRANCH:-master}
 RUN git clone -b ${BRANCH} https://github.com/black7375/BlaCk-Void-Zsh.git ~/.zsh
 RUN ~/.zsh/BlaCk-Void-Zsh.sh
 

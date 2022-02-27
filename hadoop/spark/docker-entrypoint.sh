@@ -9,19 +9,20 @@ fi
 start-dfs.sh
 
 if [[ "$1" == *"yarn"* ]]; then
+    sed -i s/local/yarn/ $HADOOP_CONF_DIR/mapred-site.xml
     start-yarn.sh
 fi
 
 if [[ "$1" == *"historyserver"* ]]; then
-    # hadoop history server
+    # Hadoop history server
     mapred --daemon start historyserver
     # Spark history server
     start-history-server.sh
 fi
 
-# Spark server
-start-master.sh
-start-workers.sh spark://localhost:7077
+if [[ "$1" == *"hbase"* ]]; then
+    start-hbase.sh
+fi
 
 hdfs dfsadmin -report
 
@@ -35,6 +36,12 @@ if [[ "$1" == *"hive"* ]]; then
         schematool -dbType derby -initSchema
     fi
     hiveserver2
-else
+fi
+
+if [[ "$1" == *"spark"* ]]; then
+    start-master.sh
+    start-workers.sh spark://localhost:7077
     tail -f $SPARK_HOME/logs/*master*.out
+else
+    tail -f $HADOOP_HOME/logs/*namenode*.log
 fi
