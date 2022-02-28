@@ -27,16 +27,14 @@ RUN set -x \
     && mv zeppelin-${ZEPPELIN_VERSION}-bin-all $ZEPPELIN_HOME \
     && rm download.tar.gz
 
-RUN pip install jupyter grpcio protobuf matplotlib pandas
+RUN pip install jupyter grpcio protobuf matplotlib pandas \
+    && cp $HIVE_HOME/jdbc/hive-jdbc-*.jar $ZEPPELIN_HOME/interpreter/jdbc
 
 # == Env Setting ============================
 ENV PATH $PATH:$ZEPPELIN_HOME/bin
 ENV ZEPPELIN_ADDR 0.0.0.0
 ENV ZEPPELIN_PORT 9995
 
-RUN cp $HIVE_HOME/lib/hive-jdbc-*.jar $ZEPPELIN_HOME/interpreter/jdbc/ \
-    && cp $HADOOP_HOME/share/hadoop/common/hadoop-common-*.jar $ZEPPELIN_HOME/interpreter/jdbc/ \
-    && rm $ZEPPELIN_HOME/interpreter/jdbc/hadoop-common-*-tests.jar
 
 RUN cp $ZEPPELIN_HOME/conf/zeppelin-env.sh.template $ZEPPELIN_HOME/conf/zeppelin-env.sh \
     && echo "export ZEPPELIN_HOME=$ZEPPELIN_HOME" >> ~/.bash_profile \
