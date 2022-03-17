@@ -1,10 +1,10 @@
 # == Info =======================================
-# hibuz/spark-dev(SIZE: 3.09GB) -> hibuz/zeppelin-dev(SIZE: 5.28GB)
+# hibuz/spark-dev(SIZE: 3.09GB) -> hibuz/zeppelin-dev(SIZE: 5.43GB)
 
 # == Build ======================================
 # docker build -t hibuz/zeppelin-dev .
 # or
-# docker build -t hibuz/zeppelin-dev --build-arg ZEPPELIN_VERSION=0.10.0 --build-arg SPARK_IMAGE_TAG=3.1.3 .
+# docker build -t hibuz/zeppelin-dev --build-arg ZEPPELIN_VERSION=0.10.1 --build-arg SPARK_IMAGE_TAG=3.1.3 .
 
 # == Run and Attatch ============================
 # docker run --rm -it -p 9995:9995 -p 4040:4040 --name zeppelin-tmp hibuz/zeppelin-dev
@@ -17,7 +17,7 @@ ARG SPARK_IMAGE_TAG
 FROM hibuz/spark-dev:${SPARK_IMAGE_TAG:-latest}
 
 # == Install ============================
-ARG ZEPPELIN_VERSION=${ZEPPELIN_VERSION:-0.10.0}
+ARG ZEPPELIN_VERSION=${ZEPPELIN_VERSION:-0.10.1}
 ENV ZEPPELIN_HOME /home/${DEFAULT_USER}/zeppelin-${ZEPPELIN_VERSION}
 
 RUN set -x \

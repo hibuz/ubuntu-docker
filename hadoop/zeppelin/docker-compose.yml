@@ -14,6 +14,7 @@ services:
       args:
         SPARK_VERSION: ${SPARK_IMAGE_TAG}
     entrypoint: bash
+    #tty: true
 
   zeppelin-dev:
     container_name: zeppelin
@@ -36,7 +37,7 @@ services:
     #command: spark,hive,hbase,yarn,historyserver
     volumes:
       - zeppelin-vol:/tmp
-      #- ../../zeppelin-example:/home/hadoop/zeppelin-0.10.0/notebook:rw
+      #- ../../zeppelin-example:/home/hadoop/zeppelin-0.10.1/notebook:rw
 
 volumes:
   zeppelin-vol: {}

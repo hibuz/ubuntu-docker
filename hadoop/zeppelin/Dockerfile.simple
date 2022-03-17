@@ -4,7 +4,7 @@
 # == Build ======================================
 # docker build -t hibuz/zeppelin-dev:simple -f Dockerfile.simple .
 # or
-# docker build -t hibuz/zeppelin-dev:simple --build-arg ZEPPELIN_VERSION=0.10.0 -f Dockerfile.simple .
+# docker build -t hibuz/zeppelin-dev:simple --build-arg ZEPPELIN_VERSION=0.10.1 -f Dockerfile.simple .
 
 # == Run and Attatch ============================
 # docker run --rm -it -p 9995:9995 -p 4040:4040 -p 18080:18080 --name zeppelin-tmp hibuz/zeppelin-dev:simple
@@ -36,7 +36,7 @@ RUN set -x \
     && mkdir /tmp/spark-events \
     && rm download.tar.gz
 
-ARG ZEPPELIN_VERSION=${ZEPPELIN_VERSION:-0.10.0}
+ARG ZEPPELIN_VERSION=${ZEPPELIN_VERSION:-0.10.1}
 RUN set -x \
     && DOWNLOAD_URL="https://dlcdn.apache.org/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-all.tgz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
