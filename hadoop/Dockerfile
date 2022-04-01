@@ -1,10 +1,10 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 297MB) -> hibuz/hadoop-dev(SIZE: 1.99GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 297MB) -> hibuz/hadoop-dev(SIZE: 2.03GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev .
 # or
-# docker build -t hibuz/hadoop-dev --build-arg HADOOP_VERSION=3.3.1 .
+# docker build -t hibuz/hadoop-dev --build-arg HADOOP_VERSION=x.y.z .
 
 # == Run and Attatch ============================
 # docker run --rm -it -p 9870:9870 --name hadoop-tmp hibuz/hadoop-dev [yarn,historyserver]
@@ -25,7 +25,7 @@ RUN sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -
     && sudo rm -rf /var/lib/apt/lists/*
 
 # == Install ============================
-ARG HADOOP_VERSION=${HADOOP_VERSION:-3.3.1}
+ARG HADOOP_VERSION=${HADOOP_VERSION:-3.3.2}
 RUN set -x \
     && DOWNLOAD_URL="https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \

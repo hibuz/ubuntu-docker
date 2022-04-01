@@ -43,7 +43,7 @@ hdfs dfs -put $HADOOP_HOME/etc/hadoop/*.xml input
 ### Run some of the examples provided:
 ``` bash
 # Run example wordcount job:
-hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.1.jar wordcount input output
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar wordcount input output
 # View the output files on the distributed filesystem:
 hdfs dfs -cat output/*
 
@@ -51,7 +51,7 @@ hdfs dfs -cat output/*
 hdfs dfs -rm -r output
 
 # Run example wordcount grep job:
-hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.1.jar grep input output 'dfs[a-z.]+'
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar grep input output 'dfs[a-z.]+'
 # View the output files on the distributed filesystem:
 hdfs dfs -cat output/*
 # Result of the output files 

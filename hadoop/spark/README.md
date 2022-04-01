@@ -91,7 +91,7 @@ Row(value='# Apache Spark')
 ### Test WordCount MapReduce
 ``` bash
 
-hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.1.jar wordcount ./README.md output2
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar wordcount ./README.md output2
 
 hdfs dfs -cat output2/* |grep PySpark
 
