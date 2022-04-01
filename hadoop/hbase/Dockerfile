@@ -1,10 +1,10 @@
 # == Info =======================================
-# hibuz/hadoop-dev(SIZE: 1.99GB) -> hibuz/hbase-dev(SIZE: 2.37GB)
+# hibuz/hadoop-dev(SIZE: 2.03GB) -> hibuz/hbase-dev(SIZE: 2.4GB)
 
 # == Build ======================================
 # docker build -t hibuz/hbase-dev .
 # or
-# docker build -t hibuz/hbase-dev --build-arg HBASE_VERSION=2.4.9 .
+# docker build -t hibuz/hbase-dev --build-arg HBASE_VERSION=x.y.z .
 
 # == Run and Attatch ============================
 # docker run --rm -it -p 9870:9870 -p 16010:16010 --name hbase-tmp hibuz/hbase-dev
@@ -16,7 +16,7 @@
 FROM hibuz/hadoop-dev
 
 # == Install ============================
-ARG HBASE_VERSION=${HBASE_VERSION:-2.4.9}
+ARG HBASE_VERSION=${HBASE_VERSION:-2.4.11}
 ENV HBASE_HOME /home/${DEFAULT_USER}/hbase-${HBASE_VERSION}
 
 RUN set -x \

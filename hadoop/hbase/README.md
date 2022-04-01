@@ -11,33 +11,33 @@ docker compose up --no-build
 ``` bash
 docker exec -it hbase bash
 
-~/hbase-2.4.9$ hdfs dfs -ls /hbase
+~/hbase-x.y.z$ hdfs dfs -ls /hbase
 Found 12 items
-drwxr-xr-x   - hadoop supergroup          0 2022-02-26 11:33 /hbase/.hbck
-drwxr-xr-x   - hadoop supergroup          0 2022-02-26 11:33 /hbase/.tmp
-drwxr-xr-x   - hadoop supergroup          0 2022-02-26 11:33 /hbase/MasterData
-drwxr-xr-x   - hadoop supergroup          0 2022-02-26 11:33 /hbase/WALs
-drwxr-xr-x   - hadoop supergroup          0 2022-02-26 11:33 /hbase/archive
-drwxr-xr-x   - hadoop supergroup          0 2022-02-26 11:33 /hbase/corrupt
-drwxr-xr-x   - hadoop supergroup          0 2022-02-26 11:33 /hbase/data
--rw-r--r--   3 hadoop supergroup         42 2022-02-26 11:33 /hbase/hbase.id
--rw-r--r--   3 hadoop supergroup          7 2022-02-26 11:33 /hbase/hbase.version
-drwxr-xr-x   - hadoop supergroup          0 2022-02-26 11:33 /hbase/mobdir
-drwxr-xr-x   - hadoop supergroup          0 2022-02-26 11:33 /hbase/oldWALs
-drwx--x--x   - hadoop supergroup          0 2022-02-26 11:33 /hbase/staging
+drwxr-xr-x   - hadoop supergroup          0 2022-04-01 10:25 /hbase/.hbck
+drwxr-xr-x   - hadoop supergroup          0 2022-04-01 10:25 /hbase/.tmp
+drwxr-xr-x   - hadoop supergroup          0 2022-04-01 10:25 /hbase/MasterData
+drwxr-xr-x   - hadoop supergroup          0 2022-04-01 10:25 /hbase/WALs
+drwxr-xr-x   - hadoop supergroup          0 2022-04-01 10:25 /hbase/archive
+drwxr-xr-x   - hadoop supergroup          0 2022-04-01 10:25 /hbase/corrupt
+drwxr-xr-x   - hadoop supergroup          0 2022-04-01 10:25 /hbase/data
+-rw-r--r--   3 hadoop supergroup         42 2022-04-01 10:25 /hbase/hbase.id
+-rw-r--r--   3 hadoop supergroup          7 2022-04-01 10:25 /hbase/hbase.version
+drwxr-xr-x   - hadoop supergroup          0 2022-04-01 10:25 /hbase/mobdir
+drwxr-xr-x   - hadoop supergroup          0 2022-04-01 10:25 /hbase/oldWALs
+drwx--x--x   - hadoop supergroup          0 2022-04-01 10:25 /hbase/staging
 ```
 
 ### HBase shell example
 ``` bash
 
 # Connect to HBase.
-~/hbase-2.4.9$ hbase shell
+~/hbase-x.y.z$ hbase shell
 HBase Shell
 Use "help" to get list of supported commands.
 Use "exit" to quit this interactive shell.
 For Reference, please visit: http://hbase.apache.org/2.0/book.html#shell
-Version 2.4.9, rc49f7f63fca144765bf7c2da41791769286dfccc, Fri Dec 17 19:02:09 PST 2021
-Took 0.0029 seconds
+Version x.y.z, r7e672a0da0586e6b7449310815182695bc6ae193, Tue Mar 15 10:31:00 PDT 2022
+Took 0.0018 seconds
 
 # Create a table.
 hbase:001:0> create 'test', 'cf'
@@ -71,7 +71,7 @@ hbase:005:0> exit
 ### HBase, MapReduce
 ``` bash
 # hbase rowcounter test or
-~/hbase-2.4.9$ hadoop jar $HBASE_HOME/lib/hbase-mapreduce-2.4.9.jar rowcounter test
+~/hbase-x.y.z$ hadoop jar $HBASE_HOME/lib/hbase-mapreduce-2.4.11.jar rowcounter test
 
 ...
 2022-02-26 11:38:51,306 INFO mapreduce.Job: Job job_local756224404_0001 running in uber mode : false
