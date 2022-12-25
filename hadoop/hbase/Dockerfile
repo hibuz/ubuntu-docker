@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hadoop-dev(SIZE: 2.03GB) -> hibuz/hbase-dev(SIZE: 2.4GB)
+# hibuz/hadoop-dev(SIZE: 2.06GB) -> hibuz/hbase-dev(SIZE: 2.45GB)
 
 # == Build ======================================
 # docker build -t hibuz/hbase-dev .
@@ -16,7 +16,7 @@
 FROM hibuz/hadoop-dev
 
 # == Install ============================
-ARG HBASE_VERSION=${HBASE_VERSION:-2.4.11}
+ARG HBASE_VERSION=${HBASE_VERSION:-2.5.2}
 ENV HBASE_HOME /home/${DEFAULT_USER}/hbase-${HBASE_VERSION}
 
 RUN set -x \

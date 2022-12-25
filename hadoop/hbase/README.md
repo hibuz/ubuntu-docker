@@ -36,7 +36,6 @@ HBase Shell
 Use "help" to get list of supported commands.
 Use "exit" to quit this interactive shell.
 For Reference, please visit: http://hbase.apache.org/2.0/book.html#shell
-Version x.y.z, r7e672a0da0586e6b7449310815182695bc6ae193, Tue Mar 15 10:31:00 PDT 2022
 Took 0.0018 seconds
 
 # Create a table.
@@ -71,7 +70,7 @@ hbase:005:0> exit
 ### HBase, MapReduce
 ``` bash
 # hbase rowcounter test or
-~/hbase-x.y.z$ hadoop jar $HBASE_HOME/lib/hbase-mapreduce-2.4.11.jar rowcounter test
+~/hbase-x.y.z$ hadoop jar $HBASE_HOME/lib/hbase-mapreduce-2.5.2.jar rowcounter test
 
 ...
 2022-02-26 11:38:51,306 INFO mapreduce.Job: Job job_local756224404_0001 running in uber mode : false
