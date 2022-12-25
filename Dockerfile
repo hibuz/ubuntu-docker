@@ -1,10 +1,10 @@
 # == Info =======================================
-# ubuntu20.04(SIZE: 72.8MB) -> hibuz/bash(SIZE: 297MB)
+# ubuntu22.04(SIZE: 77.8MB) -> hibuz/bash(SIZE: 279MB)
 
 # == Build ======================================
 # docker build -t hibuz/bash .
 # or
-# docker build -t hibuz/bash --build-arg DEFAULT_USER=ubuntu --build-arg UBUNTU_IMAGE_TAG=20.04 .
+# docker build -t hibuz/bash --build-arg DEFAULT_USER=ubuntu --build-arg UBUNTU_IMAGE_TAG=2x.04 .
 
 # == Run temporary ==============================
 # docker run --rm -it hibuz/bash
