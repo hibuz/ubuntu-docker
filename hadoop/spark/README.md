@@ -23,7 +23,7 @@ hdfs dfs -put $SPARK_HOME/README.md
 ### Interactive Analysis with the Spark Shell
 ``` bash
 
-~/spark-3.2.1$ spark-shell
+~/spark-3.x.x$ spark-shell
 
 Spark context Web UI available at http://74285e639cf8:4040
 Spark context available as 'sc' (master = local[*], app id = local-1645883822828).
@@ -32,7 +32,7 @@ Welcome to
       ____              __
      / __/__  ___ _____/ /__
     _\ \/ _ \/ _ `/ __/  '_/
-   /___/ .__/\_,_/_/ /_/\_\   version 3.2.1
+   /___/ .__/\_,_/_/ /_/\_\   version 3.x.x
       /_/
          
 Using Scala version 2.12.15 (OpenJDK 64-Bit Server VM, Java 1.8.0_312)
@@ -54,13 +54,13 @@ scala> :q
 ### Interactive Analysis with the PySpark
 ``` bash
 
-~/spark-3.2.1$ pyspark
+~/spark-3.x.x$ pyspark
 
 Welcome to
       ____              __
      / __/__  ___ _____/ /__
     _\ \/ _ \/ _ `/ __/  '_/
-   /__ / .__/\_,_/_/ /_/\_\   version 3.2.1
+   /__ / .__/\_,_/_/ /_/\_\   version 3.x.x
       /_/
 
 Using Python version 3.8.10 (default, Nov 26 2021 20:14:08)
@@ -73,7 +73,7 @@ SparkSession available as 'spark'.
 
 # Number of rows in this DataFrame
 >>> textFile.count()
-109
+124
 
 # First row in this DataFrame
 >>> textFile.first()

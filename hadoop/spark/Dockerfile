@@ -1,10 +1,10 @@
 # == Info =======================================
-# hibuz/hive-dev(SIZE: 2.68GB) -> hibuz/spark-dev(SIZE: 3.14GB)
+# hibuz/hive-dev(SIZE: 2.82GB) -> hibuz/spark-dev(SIZE: 3.32GB)
 
 # == Build ======================================
 # docker build -t hibuz/spark-dev .
 # or
-# docker build -t hibuz/spark-dev --build-arg SPARK_VERSION=3.2.1 .
+# docker build -t hibuz/spark-dev --build-arg SPARK_VERSION=x.y.z .
 
 # == Run and Attatch ============================
 # docker run --rm -it -p 8080:8080 -p 4040:4040 --name spark-tmp hibuz/spark-dev
@@ -20,11 +20,11 @@ RUN sudo apt-get update && sudo apt-get install -y python3 python3-pip \
     && sudo rm -rf /var/lib/apt/lists/*
 
 # == Install ============================
-ARG SPARK_VERSION=${SPARK_VERSION:-3.2.1}
+ARG SPARK_VERSION=${SPARK_VERSION:-3.3.1}
 ENV SPARK_HOME /home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz" \
+    && DOWNLOAD_URL="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && mv spark-${SPARK_VERSION}-bin-without-hadoop $SPARK_HOME \
