@@ -24,13 +24,13 @@ docker exec -it hive bash
 ``` bash
 
 # Connect to HiveServer2 with Beeline from shell:
-~/hive-3.1.2$ beeline -n hadoop -u jdbc:hive2://localhost:10000
+~/hive-3.1.x$ beeline -n hadoop -u jdbc:hive2://localhost:10000
 ...
 Connecting to jdbc:hive2://localhost:10000
-Connected to: Apache Hive (version 3.1.2)
-Driver: Hive JDBC (version 3.1.2)
+Connected to: Apache Hive (version 3.1.x)
+Driver: Hive JDBC (version 3.1.x)
 Transaction isolation: TRANSACTION_REPEATABLE_READ
-Beeline version 3.1.2 by Apache Hive
+Beeline version 3.1.x by Apache Hive
 
 # Beeline is started with the JDBC URL of the HiveServer2
 # First, create a table with tab-delimited text file format:
@@ -51,7 +51,7 @@ No rows affected (0.334 seconds)
 1 row selected (0.257 seconds)
 
 # Loading data from flat example file into Hive:
-0: jdbc:hive2://localhost:10000> LOAD DATA LOCAL INPATH '/home/hadoop/hive-3.1.2/examples/files/kv1.txt' OVERWRITE INTO TABLE pokes;
+0: jdbc:hive2://localhost:10000> LOAD DATA LOCAL INPATH '/home/hadoop/hive-3.1.3/examples/files/kv1.txt' OVERWRITE INTO TABLE pokes;
 ...
 INFO  : OK
 INFO  : Concurrency mode is disabled, not creating a lock manager

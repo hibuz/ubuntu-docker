@@ -1,10 +1,10 @@
 # == Info =======================================
-# hibuz/hbase-dev(SIZE: 2.37GB) -> hibuz/hive-dev(SIZE: 2.68GB)
+# hibuz/hbase-dev(SIZE: 2.45GB) -> hibuz/hive-dev(SIZE: 2.82GB)
 
 # == Build ======================================
 # docker build -t hibuz/hive-dev .
 # or
-# docker build -t hibuz/hive-dev --build-arg HIVE_VERSION=3.1.2 .
+# docker build -t hibuz/hive-dev --build-arg HIVE_VERSION=x.y.z .
 
 # == Run and Attatch ============================
 # docker run --rm -it -p 9870:9870 -p 10002:10002 --name hive-tmp hibuz/hive-dev
@@ -16,7 +16,7 @@
 FROM hibuz/hbase-dev
 
 # == Install ============================
-ARG HIVE_VERSION=${HIVE_VERSION:-3.1.2}
+ARG HIVE_VERSION=${HIVE_VERSION:-3.1.3}
 ENV HIVE_HOME /home/${DEFAULT_USER}/hive-${HIVE_VERSION}
 
 RUN set -x \
