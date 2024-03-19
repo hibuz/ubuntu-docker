@@ -4,15 +4,15 @@
 # == Build ======================================
 # docker build -t hibuz/bash .
 # or
-# docker build -t hibuz/bash --build-arg DEFAULT_USER=ubuntu --build-arg UBUNTU_IMAGE_TAG=2x.04 .
+# docker build -t hibuz/bash --build-arg DEFAULT_USER=ubuntu --build-arg UBUNTU_VERSION=2x.04 .
 
 # == Run temporary ==============================
 # docker run --rm -it hibuz/bash
 
 
 # == Init =======================================
-ARG UBUNTU_IMAGE_TAG=${UBUNTU_IMAGE_TAG:-latest}
-FROM ubuntu:${UBUNTU_IMAGE_TAG}
+ARG UBUNTU_VERSION=${UBUNTU_VERSION:-latest}
+FROM ubuntu:${UBUNTU_VERSION}
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Locale Setting =============================

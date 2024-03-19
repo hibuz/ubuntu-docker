@@ -9,7 +9,7 @@ services:
       context: .
       args:
         DEFAULT_USER: ${DEFAULT_USER}
-        UBUNTU_IMAGE_TAG: ${UBUNTU_IMAGE_TAG}
+        UBUNTU_VERSION: ${UBUNTU_VERSION}
 
   ubuntu:
     container_name: test

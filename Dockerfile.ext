@@ -7,7 +7,7 @@
 # docker run --rm -it hibuz/bvzsh
 
 # == Build & Run (powertools) ===================
-# docker build -t hibuz/bvzsh-powertools  -f Dockerfile.ext --build-arg DEFAULT_USER=ubuntu --build-arg BRANCH=powertools --build-arg UBUNTU_IMAGE_TAG=2x.04 .
+# docker build -t hibuz/bvzsh-powertools  -f Dockerfile.ext --build-arg DEFAULT_USER=ubuntu --build-arg BRANCH=powertools --build-arg UBUNTU_VERSION=2x.04 .
 # docker run --rm -it hibuz/bvzsh-powertools
 
 
