@@ -19,6 +19,10 @@ fi
 
 hdfs dfsadmin -report
 
+mkdir $HBASE_HOME/logs
+nohup hbase master start 2>&1 | tee $HBASE_HOME/logs/hbase-master.log &
+sleep 1
+
 jps
 
-hbase master start
+tail -f $HBASE_HOME/logs/hbase-master.log

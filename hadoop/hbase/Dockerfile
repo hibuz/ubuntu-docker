@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hadoop-dev(SIZE: 2.06GB) -> hibuz/hbase-dev(SIZE: 2.45GB)
+# hibuz/hadoop-dev(SIZE: 2.46GB) -> hibuz/hbase-dev(SIZE: 2.86GB)
 
 # == Build ======================================
 # docker build -t hibuz/hbase-dev .
@@ -16,14 +16,14 @@
 FROM hibuz/hadoop-dev
 
 # == Install ============================
-ARG HBASE_VERSION=${HBASE_VERSION:-2.5.2}
+ARG HBASE_VERSION=${HBASE_VERSION:-2.5.8}
 ENV HBASE_HOME /home/${DEFAULT_USER}/hbase-${HBASE_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://archive.apache.org/dist/hbase/${HBASE_VERSION}/hbase-${HBASE_VERSION}-bin.tar.gz" \
+    && DOWNLOAD_URL="https://archive.apache.org/dist/hbase/${HBASE_VERSION}/hbase-${HBASE_VERSION}-hadoop3-client-bin.tar.gz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
-    && mv hbase-${HBASE_VERSION} $HBASE_HOME \
+    && mv hbase-${HBASE_VERSION}* $HBASE_HOME \
     && rm download.tar.gz
 
 # == Env Setting ============================
@@ -39,8 +39,10 @@ RUN echo "export HBASE_HOME=$HBASE_HOME" >> ~/.bash_profile \
     #&& sed -i "0,/>false/ s/>false/>true/" $HBASE_CONF_DIR/hbase-site.xml \
     #&& echo "export JAVA_HOME=$JAVA_HOME" >> $HBASE_CONF_DIR/hbase-env.sh \
     #&& echo "export HBASE_CLASSPATH=$HADOOP_CONF_DIR" >> $HBASE_CONF_DIR/hbase-env.sh \
-    #&& ln -s $HADOOP_CONF_DIR/hadoop-site.xml $HBASE_CONF_DIR/hadoop-site.xml \
-    
+    #&& echo "export HBASE_MANAGES_ZK=false" >> $HBASE_CONF_DIR/hbase-env.sh \
+    #&& ln -s $HADOOP_CONF_DIR/hadoop-site.xml $HBASE_CONF_DIR/hadoop-site.xml
+    # <property><name>hbase.wal.provider</name><value>filesystem</value></property>
+
 RUN hbase_conf="<property><name>hbase.rootdir</name><value>hdfs://localhost:9000/hbase</value></property>" \
     && escaped_hbase_conf=$(echo $hbase_conf | sed 's/\//\\\//g') \
     && sed -i "/<\/configuration>/ s/.*/${escaped_hbase_conf}&/" $HBASE_CONF_DIR/hbase-site.xml

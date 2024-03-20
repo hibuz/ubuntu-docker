@@ -38,14 +38,20 @@ Use "exit" to quit this interactive shell.
 For Reference, please visit: http://hbase.apache.org/2.0/book.html#shell
 Took 0.0018 seconds
 
+# Display clust status
+# or version, whoami
+hbase:001:0> status
+1 active master, 0 backup masters, 1 servers, 0 dead, 2.0000 average load
+Took 0.8972 seconds 
+
 # Create a table.
-hbase:001:0> create 'test', 'cf'
+hbase:002:0> create 'test', 'cf'
 Created table test
 Took 2.1528 seconds
 => Hbase::Table - test
 
 # List your table.
-hbase:002:0> list
+hbase:003:0> list
 TABLE
 test
 1 row(s)
@@ -53,24 +59,24 @@ Took 0.0137 seconds
 => ["test"]
 
 # Put data into your table.
-hbase:003:0> put 'test', 'row1', 'cf:a', 'value1'
+hbase:004:0> put 'test', 'row1', 'cf:a', 'value1'
 Took 0.1318 second
 
 # Scan the table for all data at once.
-hbase:004:0> scan 'test'
+hbase:005:0> scan 'test'
 ROW                                       COLUMN+CELL
  row1                                     column=cf:a, timestamp=2022-02-25T10:01:30.405, value=value1
 1 row(s)
 Took 0.0259 seconds
 
 # Exit HBase Shell
-hbase:005:0> exit
+hbase:006:0> exit
 ```
 
 ### HBase, MapReduce
 ``` bash
 # hbase rowcounter test or
-~/hbase-x.y.z$ hadoop jar $HBASE_HOME/lib/hbase-mapreduce-2.5.2.jar rowcounter test
+~/hbase-x.y.z$ hadoop jar $HBASE_HOME/lib/hbase-mapreduce-2.5.8-hadoop3.jar rowcounter test
 
 ...
 2022-02-26 11:38:51,306 INFO mapreduce.Job: Job job_local756224404_0001 running in uber mode : false
@@ -87,9 +93,9 @@ hbase:005:0> exit
 docker compose down -v
 
 [+] Running 3/3
- ⠿ Container hbase         Removed
- ⠿ Volume hbase_hbase-vol  Removed
- ⠿ Network hbase_default   Removed
+ ✔ Container hbase         Removed
+ ✔ Volume hbase_hbase-vol  Removed
+ ✔ Network hbase_default   Removed
 ```
 
 # Visit hbase dashboard
