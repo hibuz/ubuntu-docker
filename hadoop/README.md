@@ -16,11 +16,11 @@ docker compose up hadoop-dev --no-build
   ubuntu-docker$ docker compose build bash-base
   # hadoop
   ubuntu-docker/hadoop$ docker compose build hadoop-base
-  ubuntu-docker/hadoop$ docker compose up --build
+  ubuntu-docker/hadoop$ docker build -t hibuz/hadoop-dev .
   # hbase|hive|spark
   ubuntu-docker/hadoop/(hbase|hive|spark)$ docker compose up --build
   # spark-base for zeppelin
-  ubuntu-docker/hadoop/zeppelin$ docker compose build spark-base
+  ubuntu-docker/hadoop/zeppelin$ docker compose build flink-base
   # zeppelin
   ubuntu-docker/hadoop/zeppelin$ docker compose up --build
   ```
@@ -65,9 +65,9 @@ hdfs dfs -cat output/*
 docker compose down -v
 
 [+] Running 3/3
- ⠿ Container hbase         Removed
- ⠿ Volume hbase_hbase-vol  Removed
- ⠿ Network hbase_default   Removed
+ ✔ Container hbase         Removed
+ ✔ Volume hbase_hbase-vol  Removed
+ ✔ Network hbase_default   Removed
 ```
 
 # Visit hadoop dashboard

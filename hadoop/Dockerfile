@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/bash==hibuz/hadoop-base(SIZE: 279MB) -> hibuz/hadoop-dev(SIZE: 2.06GB)
+# hibuz/bash==hibuz/hadoop-base(SIZE: 279MB) -> hibuz/hadoop-dev(SIZE: 2.46GB)
 
 # == Build ======================================
 # docker build -t hibuz/hadoop-dev .
@@ -25,7 +25,7 @@ RUN sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -
     && sudo rm -rf /var/lib/apt/lists/*
 
 # == Install ============================
-ARG HADOOP_VERSION=${HADOOP_VERSION:-3.3.4}
+ARG HADOOP_VERSION=${HADOOP_VERSION:-3.4.0}
 RUN set -x \
     && DOWNLOAD_URL="https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
