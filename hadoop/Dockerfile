@@ -39,10 +39,8 @@ ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
 ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 ENV LD_LIBRARY_PATH $HADOOP_HOME/lib/native
 
-RUN echo "export JAVA_HOME=$JAVA_HOME" > ~/.bash_profile \
-    && echo "export HADOOP_HOME=$HADOOP_HOME" >> ~/.bash_profile \
-    && echo "export PATH=\$PATH:\$HADOOP_HOME/bin:\$HADOOP_HOME/sbin" >> ~/.bash_profile \
-    && echo "export LD_LIBRARY_PATH=\$HADOOP_HOME/lib/native" >> ~/.bash_profile \
+RUN echo "export HADOOP_HOME=$HADOOP_HOME" >> ~/.bashrc \
+    && echo "export HADOOP_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> ~/.bashrc \
     && echo "export HADOOP_HOME=$HADOOP_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh \
     && echo "export HADOOP_MAPRED_HOME=\$HADOOP_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh \
     && echo "export JAVA_HOME=$JAVA_HOME" >> $HADOOP_CONF_DIR/hadoop-env.sh 

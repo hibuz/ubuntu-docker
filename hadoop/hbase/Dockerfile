@@ -30,9 +30,7 @@ RUN set -x \
 ENV PATH $PATH:$HBASE_HOME/bin
 ENV HBASE_CONF_DIR $HBASE_HOME/conf
 
-RUN echo "export HBASE_HOME=$HBASE_HOME" >> ~/.bash_profile \
-    && echo "export PATH=\"\$PATH\":\$HBASE_HOME/bin" >> ~/.bash_profile \
-    && echo "export HBASE_DISABLE_HADOOP_CLASSPATH_LOOKUP=\"true\"" >> $HBASE_CONF_DIR/hbase-env.sh \
+RUN echo "export HBASE_DISABLE_HADOOP_CLASSPATH_LOOKUP=\"true\"" >> $HBASE_CONF_DIR/hbase-env.sh \
     && echo "export HADOOP_CLASSPATH=\$($HBASE_HOME/bin/hbase mapredcp):\$HADOOP_CLASSPATH" >> $HADOOP_CONF_DIR/hadoop-env.sh
     # Pseudo-Distributed for Local Testing
     # sed to replace hbase.cluster.distributed -> true
