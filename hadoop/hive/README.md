@@ -6,13 +6,11 @@ cd ubuntu-docker/hadoop/hive
 
 docker compose up --no-build
 
-# Wait until 4 Hive sessions are created
+# Wait until 2 Hive sessions are created
 hive  | 2021-09-12 03:48:25: Starting HiveServer2
 ...
 hive  | Hive Session ID = 2ffe9e77-c95b-4951-b7b7-080710594503
 hive  | Hive Session ID = 405b164b-bf28-4b43-bdc1-3fb9d764efe4
-hive  | Hive Session ID = 0b62145a-0c32-4636-9ffe-08ba387f99c3
-hive  | Hive Session ID = a9a32ed8-a96f-4d7f-9958-15f82cfae28f
 ```
 
 ### Attach to running container
@@ -78,9 +76,9 @@ Closing: 0: jdbc:hive2://localhost:10000
 docker compose down -v
 
 [+] Running 3/3
- ⠿ Container hive        Removed
- ⠿ Volume hive_hive-vol  Removed
- ⠿ Network hive_default  Removed
+ ✔ Container hive        Removed
+ ✔ Volume hive_hive-vol  Removed
+ ✔ Network hive_default  Removed
 ```
 
 # Visit hive dashboard

@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hbase-dev(SIZE: 2.45GB) -> hibuz/hive-dev(SIZE: 2.82GB)
+# hibuz/hbase-dev(SIZE: 2.86GB) -> hibuz/hive-dev(SIZE: 3.23GB)
 
 # == Build ======================================
 # docker build -t hibuz/hive-dev .
@@ -20,7 +20,7 @@ ARG HIVE_VERSION=${HIVE_VERSION:-3.1.3}
 ENV HIVE_HOME /home/${DEFAULT_USER}/hive-${HIVE_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://downloads.apache.org/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz" \
+    && DOWNLOAD_URL="https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
     && mv apache-hive-${HIVE_VERSION}-bin $HIVE_HOME \
@@ -32,11 +32,9 @@ RUN set -x \
 ENV PATH $PATH:$HIVE_HOME/bin
 
 RUN cp $HIVE_HOME/conf/hive-env.sh.template $HIVE_HOME/conf/hive-env.sh \
-    && cp $HIVE_HOME/conf/hive-default.xml.template $HIVE_HOME/conf/hive-default.xml \
-    && echo "export HIVE_HOME=$HIVE_HOME" >> ~/.bash_profile \
-    && echo "export PATH=\$PATH:\$HIVE_HOME/bin" >> ~/.bash_profile \
-    && echo "export HADOOP_HEAPSIZE=512" >> $HIVE_HOME/conf/hive-env.sh
-
+    && echo "export HADOOP_HEAPSIZE=512" >> $HIVE_HOME/conf/hive-env.sh \
+    && cp $HIVE_HOME/conf/hive-default.xml.template $HIVE_HOME/conf/hive-default.xml
+    
 RUN core_conf="<property><name>hadoop.proxyuser.${DEFAULT_USER}.hosts</name><value>*</value></property>\
             <property><name>hadoop.proxyuser.${DEFAULT_USER}.groups</name><value>*</value></property>" \
     && escaped_core_conf=$(echo $core_conf | sed 's/\//\\\//g') \

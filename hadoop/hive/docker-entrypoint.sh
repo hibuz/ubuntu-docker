@@ -25,7 +25,8 @@ if [ ! -d "$HIVE_HOME/metastore_db" ]; then
 fi
 
 if [[ "$1" == *"hbase"* ]]; then
-    start-hbase.sh
+    mkdir $HBASE_HOME/logs
+    nohup hbase master start 2>&1 | tee $HBASE_HOME/logs/hbase-master.log &
 fi
 
 hdfs dfsadmin -report
