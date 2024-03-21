@@ -11,6 +11,8 @@ start-dfs.sh
 if [[ "$1" == *"yarn"* ]]; then
     sed -i s/local/yarn/ $HADOOP_CONF_DIR/mapred-site.xml
     start-yarn.sh
+else
+    sed -i s/yarn/local/ $HADOOP_CONF_DIR/mapred-site.xml
 fi
 
 if [[ "$1" == *"historyserver"* ]]; then
