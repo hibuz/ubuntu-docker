@@ -1,5 +1,5 @@
 # == Info =======================================
-# hibuz/hive-dev(SIZE: 2.82GB) -> hibuz/spark-dev(SIZE: 3.32GB)
+# hibuz/hive-dev(SIZE: 3.23GB) -> hibuz/spark-dev(SIZE: 3.89GB)
 
 # == Build ======================================
 # docker build -t hibuz/spark-dev .
@@ -16,18 +16,19 @@
 FROM hibuz/hive-dev
 
 # == Package Setting ============================
-RUN sudo apt-get update && sudo apt-get install -y python3 python3-pip \
+RUN sudo apt-get update && sudo apt-get install -y \
+    python3 python3-pip \
     && sudo rm -rf /var/lib/apt/lists/*
 
 # == Install ============================
-ARG SPARK_VERSION=${SPARK_VERSION:-3.3.1}
+ARG SPARK_VERSION=${SPARK_VERSION:-3.5.1}
 ENV SPARK_HOME /home/${DEFAULT_USER}/spark-${SPARK_VERSION}
 
 RUN set -x \
-    && DOWNLOAD_URL="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz" \
+    && DOWNLOAD_URL="https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz" \
     && curl -fSL "$DOWNLOAD_URL" -o download.tar.gz \
     && tar -xvf download.tar.gz \
-    && mv spark-${SPARK_VERSION}-bin-without-hadoop $SPARK_HOME \
+    && mv spark-${SPARK_VERSION}-bin-* $SPARK_HOME \
     && mkdir /tmp/spark-events \
     && rm download.tar.gz
 
@@ -35,10 +36,10 @@ RUN set -x \
 ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 RUN cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh \
-    && echo "export SPARK_HOME=$SPARK_HOME" >> ~/.bash_profile \
     && echo "export HADOOP_HOME=$HADOOP_HOME" >> $SPARK_HOME/conf/spark-env.sh \
     && echo "export SPARK_DIST_CLASSPATH=\$(\$HADOOP_HOME/bin/hadoop classpath)" >> $SPARK_HOME/conf/spark-env.sh \
-    && sudo ln -s /usr/bin/python3 /usr/bin/python
+    && sudo ln -s /usr/bin/python3 /usr/bin/python \
+    && python -m pip install --upgrade pip
 
 
 COPY docker-entrypoint.sh /

@@ -104,9 +104,9 @@ hdfs dfs -cat output2/* |grep PySpark
 docker compose down -v
 
 [+] Running 3/3
- ⠿ Container spark         Removed
- ⠿ Volume spark_spark-vol  Removed
- ⠿ Network spark_default   Removed
+ ✔ Container spark         Removed
+ ✔ Volume spark_spark-vol  Removed
+ ✔ Network spark_default   Removed
 ```
 
 # Visit spark dashboards

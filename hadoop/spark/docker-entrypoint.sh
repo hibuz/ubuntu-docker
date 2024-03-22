@@ -23,8 +23,12 @@ if [[ "$1" == *"historyserver"* ]]; then
 fi
 
 if [[ "$1" == *"hbase"* ]]; then
-    start-hbase.sh
+    mkdir $HBASE_HOME/logs
+    nohup hbase master start 2>&1 | tee $HBASE_HOME/logs/hbase-master.log &
 fi
+
+start-master.sh
+start-workers.sh spark://localhost:7077
 
 hdfs dfsadmin -report
 
@@ -38,12 +42,6 @@ if [[ "$1" == *"hive"* ]]; then
         schematool -dbType derby -initSchema
     fi
     hiveserver2
-fi
-
-if [[ "$1" == *"spark"* ]]; then
-    start-master.sh
-    start-workers.sh spark://localhost:7077
-    tail -f $SPARK_HOME/logs/*master*.out
 else
-    tail -f $HADOOP_HOME/logs/*namenode*.log
+    tail -f $SPARK_HOME/logs/*master*.out
 fi
