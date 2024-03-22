@@ -23,19 +23,9 @@ if [[ "$1" == *"historyserver"* ]]; then
 fi
 
 if [[ "$1" == *"hbase"* ]]; then
-    start-hbase.sh
+    mkdir $HBASE_HOME/logs
+    nohup hbase master start 2>&1 | tee $HBASE_HOME/logs/hbase-master.log &
 fi
-
-if [[ "$1" == *"spark"* ]]; then
-    start-master.sh
-    start-workers.sh spark://localhost:7077
-fi
-
-zeppelin-daemon.sh start
-
-hdfs dfsadmin -report
-
-jps
 
 if [[ "$1" == *"hive"* ]]; then
     cd $HIVE_HOME
@@ -44,7 +34,22 @@ if [[ "$1" == *"hive"* ]]; then
         init-hive-dfs.sh
         schematool -dbType derby -initSchema
     fi
-    hiveserver2
-else
-    tail -f $ZEPPELIN_HOME/logs/zeppelin--*.log
+    hiveserver2 &
 fi
+
+if [[ "$1" == *"spark"* ]]; then
+    start-master.sh
+    start-workers.sh spark://localhost:7077
+fi
+
+if [[ "$1" == *"flink"* ]]; then
+    $FLINK_HOME/bin/start-cluster.sh
+fi
+
+zeppelin-daemon.sh start
+
+hdfs dfsadmin -report
+
+jps
+
+tail -f $ZEPPELIN_HOME/logs/zeppelin--*.log

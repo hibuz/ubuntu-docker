@@ -23,13 +23,13 @@ hdfs dfs -put $SPARK_HOME/README.md
 ### Interactive Analysis with the PySpark
 ``` bash
 
-~/spark-3.1.3$ pyspark
+~/zeppelin-0.xx.x$ pyspark
 
 Welcome to
       ____              __
      / __/__  ___ _____/ /__
     _\ \/ _ \/ _ `/ __/  '_/
-   /__ / .__/\_,_/_/ /_/\_\   version 3.1.3
+   /__ / .__/\_,_/_/ /_/\_\   version 3.x.x
       /_/
 
 Using Python version 3.8.10 (default, Nov 26 2021 20:14:08)
@@ -42,7 +42,7 @@ SparkSession available as 'spark'.
 
 # Number of rows in this DataFrame
 >>> textFile.count()
-108
+125
 
 # First row in this DataFrame
 >>> textFile.first()
@@ -70,6 +70,10 @@ from pyspark.sql.functions import explode, split
 wordCounts = textFile.select(explode(split(textFile.value, "\s+")).alias("word")).groupBy("word").count()
 wordCounts.show()
 ```
+#### Tested Tutorials
+- 
+- Python Tutorial > 3. Keras Binary Classification (IMDB) : !pip install keras==2.15.0 tensorflow==2.15.0
+- Flink Tutorial > 1. Flink Basics : !pip install apache-flink==1.17.2 matplotlib seaborn bokeh plotnine holoviews hvplot altair vega_datasets plotly
 
 ### Stops containers and removes containers, networks, and volumes created by `up`.
 ``` bash
@@ -77,14 +81,15 @@ wordCounts.show()
 docker compose down -v
 
 [+] Running 4/4
- ⠿ Container zeppelin-spark-base-1  Removed
- ⠿ Container zeppelin               Removed
- ⠿ Volume zeppelin_zeppelin-vol     Removed
- ⠿ Network zeppelin_default         Removed
+ ✔ Container zeppelin-spark-base-1  Removed
+ ✔ Container zeppelin               Removed
+ ✔ Volume zeppelin_zeppelin-vol     Removed
+ ✔ Network zeppelin_default         Removed
 ```
 
 # Visit zeppelin dashboards
 
-- Spark Jobs : http://localhost:4040
 - Zeppelin Tutorials: http://localhost:9995
+- Spark Jobs (Optional) : http://localhost:4040
+- Flink Dashboard (Optional) : http://localhost:8083
 ![Zeppelin Tutorials](.assets/zeppelin_dev.jpg)
