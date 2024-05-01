@@ -1,5 +1,5 @@
 # == Info =======================================
-# ubuntu22.04(SIZE: 77.8MB) -> hibuz/bvzsh-master(SIZE: 699MB), hibuz/bvzsh-powertools(SIZE: 724MB)
+# ubuntu24.04(SIZE: 76.2MB) -> hibuz/bvzsh-master(SIZE: 886MB), hibuz/bvzsh-powertools(SIZE: 724MB)
 # Reference: https://github.com/black7375/BlaCk-Void-Zsh/tree/master/Docker
 
 # == Build & Run (master) =======================
@@ -7,18 +7,21 @@
 # docker run --rm -it hibuz/bvzsh
 
 # == Build & Run (powertools) ===================
-# docker build -t hibuz/bvzsh-powertools  -f Dockerfile.ext --build-arg DEFAULT_USER=ubuntu --build-arg BRANCH=powertools --build-arg UBUNTU_VERSION=2x.04 .
+# docker build -t hibuz/bvzsh-powertools -f Dockerfile.ext --build-arg BRANCH=powertools --build-arg UBUNTU_VERSION=24.04 .
 # docker run --rm -it hibuz/bvzsh-powertools
 
 
 # == Init =======================================
-FROM hibuz/bash
+ARG UBUNTU_VERSION=${UBUNTU_VERSION:-22.04}
+FROM hibuz/bash:${UBUNTU_VERSION}
 
 # == Package Setting ============================
-RUN sudo apt-get update && sudo apt-get install -y \
+RUN sudo apt update && sudo apt install -y \
   lsb-release \
   inetutils-tools \
   unzip \
+#  && cd /usr/lib/python3.* \
+#  && sudo mv EXTERNALLY-MANAGED EXTERNALLY-MANAGED.old \
   && sudo rm -rf /var/lib/apt/lists/*
 
 # == Zsh Setting ================================

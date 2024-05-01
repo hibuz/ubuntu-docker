@@ -1,8 +1,13 @@
-# docker compose up
-# docker exec -it test bash
+# docker compose build hadoop-base
+# or
+# docker compose up --build
+
 version: "3.9"
 services:
-  ubuntu:
-    image: hibuz/bash
-    tty: true
-    container_name: test
+
+  hadoop-base:
+    image: hibuz/hadoop-base
+    build:
+      context: ../
+      args:
+        DEFAULT_USER: ${DEFAULT_USER:-hadoop}
