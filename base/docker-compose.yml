@@ -2,7 +2,6 @@
 # or
 # docker compose up --build
 
-version: "3.9"
 services:
 
   hadoop-base:
