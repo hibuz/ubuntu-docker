@@ -1,34 +1,35 @@
-# docker compose up --build
-# docker exec -it test zsh or bash
-version: "3.9"
+# docker compose build
+
 services:
 
-  bash-base:
+  hibuz-bash:
     image: hibuz/bash
     build:
       context: .
+      tags:
+        - "hibuz/bash:${UBUNTU_VERSION}"
       args:
-        DEFAULT_USER: ${DEFAULT_USER}
         UBUNTU_VERSION: ${UBUNTU_VERSION}
 
-  ubuntu:
+  hibuz-zsh:
     container_name: test
-    image: hibuz/bvzsh-${BRANCH}
+    image: hibuz/zsh
     build:
       context: .
-      dockerfile: Dockerfile.ext
+      dockerfile: Dockerfile.zsh
+      tags:
+        - "hibuz/zsh:${UBUNTU_VERSION}"
       args:
-        BRANCH: ${BRANCH}
+        UBUNTU_VERSION: ${UBUNTU_VERSION}
+        ZSH_BASE_IMAGE: ${ZSH_BASE_IMAGE}
     env_file:
       - ./common.env
     restart: unless-stopped
     #network_mode: host
     ports:
       - 5000-5001:5000-5001
-    entrypoint: bash
-    command: -c "/code/init.sh"
-    user: ubuntu
-    working_dir: /home/ubuntu
+    #user: ubuntu
+    #working_dir: /home/ubuntu
     stdin_open: true
     tty: true
     privileged: true
@@ -40,15 +41,17 @@ services:
     volumes:
       #- /dev/bus/usb:/dev/bus/usb
       - .:/code
-      - ubuntu-volume01:/data:Z
+      - hibuz-vol:/data:Z
+    #entrypoint: bash
+    command: -c "/code/info.sh"
     depends_on:
-      - bash-base
+      - hibuz-bash
     networks:
       hibuz.com:
           aliases:
               - test.hibuz.com
 volumes:
-  ubuntu-volume01: {}
+  hibuz-vol: {}
 
 networks:
   hibuz.com:

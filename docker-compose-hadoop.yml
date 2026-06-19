@@ -1,0 +1,25 @@
+services:
+
+  hadoop-bash:
+    image: hibuz/hadoop-bash
+    build:
+      tags:
+        - "hibuz/hadoop-bash:${UBUNTU_VERSION}"
+      args:
+        UBUNTU_VERSION: ${UBUNTU_VERSION}
+        DEFAULT_USER: ${DEFAULT_USER:-hadoop}
+
+  hadoop-base:
+    image: hibuz/hadoop-base
+    build:
+      dockerfile: Dockerfile.zsh
+      tags:
+        - "hibuz/hadoop-base:${UBUNTU_VERSION}"
+      args:
+        UBUNTU_VERSION: ${UBUNTU_VERSION}
+        ZSH_BASE_IMAGE: ${ZSH_BASE_IMAGE:-hadoop-bash}
+    command: -c "/info.sh"
+    volumes:
+      - ./info.sh:/info.sh
+    depends_on:
+      - hadoop-bash

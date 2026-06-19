@@ -3,33 +3,28 @@
 ## 1. Just use Ubuntu OS with `ubuntu` as default user
 - Docker run temporary
 ``` bash
+docker run --rm -it hibuz/zsh
+or
 docker run --rm -it hibuz/bash
 ```
 
 ## 2. Addtional images
-### 2.1 clone repository
-``` bash
-git clone https://github.com/hibuz/ubuntu-docker
-```
 
-### 2.2 simple docker compose run command
+### 2.1 simple docker compose run command
 - Docker run
 ``` bash
-cd ubuntu-docker/base
+git clone https://github.com/hibuz/ubuntu-docker
 
-docker compose up
-```
-
-### 2.3 zsh docker compose run command
-- Docker build and run
-``` bash
 cd ubuntu-docker
 
 docker compose up
 ```
 
-## 3 docker build & run command
-- see [Dockerfile](Dockerfile) & [Dockerfile.ext](Dockerfile.ext)
+### 2.2 hadoop-base docker compose build command
+- Docker build and run
+``` bash
+docker compose -f docker-compose-hadoop.yml build
+```
 
-# Reference
-- https://github.com/black7375/BlaCk-Void-Zsh
+## 3 docker build & run command
+- see [Dockerfile](Dockerfile) & [Dockerfile.zsh](Dockerfile.zsh)
