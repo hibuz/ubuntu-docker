@@ -16,9 +16,9 @@ FROM ubuntu:${UBUNTU_VERSION}
 LABEL org.opencontainers.image.authors="hibuz@hibuz.com"
 
 # == Package Setting ============================
-ENV LANG en_US.UTF-8 \
-    LANGUAGE en_US.UTF-8 \
-    LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
 
 RUN sed -i 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list.d/ubuntu.sources \
   && DEBIAN_FRONTEND=noninteractive apt update \
