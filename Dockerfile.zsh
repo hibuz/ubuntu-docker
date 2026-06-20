@@ -12,8 +12,10 @@
 
 # == Init =======================================
 ARG UBUNTU_VERSION=26.04
-ARG ZSH_BASE_IMAGE=bash
-FROM hibuz/${ZSH_BASE_IMAGE}:${UBUNTU_VERSION}
+FROM hibuz/bash:${UBUNTU_VERSION}
+
+USER ubuntu
+WORKDIR /home/ubuntu
 
 # == Package Setting ============================
 RUN sudo apt update \

@@ -1,12 +1,14 @@
 # Custom ubuntu docker image
 
-## 1. Just use Ubuntu OS with `ubuntu` as default user
+## 1. 🚀 Run Oh My Zsh Instantly on Ubuntu
 - Docker run temporary
-```bash
-docker run --rm -it -u ubuntu hibuz/bash
-```
 ```zsh
+# default user: ubuntu
 docker run --rm -it hibuz/zsh
+```
+```bash
+# default user: hibuz
+docker run --rm -it hibuz/bash
 ```
 
 ## 2. Addtional images
@@ -19,6 +21,8 @@ git clone https://github.com/hibuz/ubuntu-docker
 cd ubuntu-docker
 
 docker compose up
+
+
 ```
 
 ### 2.2 hadoop-base docker compose build command
